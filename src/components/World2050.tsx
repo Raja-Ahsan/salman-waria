@@ -3,7 +3,7 @@ import { assets } from '../lib/assets';
 
 export function World2050() {
   return (
-    <section id="world-2050" className="section world2050" aria-labelledby="world2050-heading">
+    <section id="world-2050" className="world2050" aria-labelledby="world2050-heading">
       <div className="container world2050__grid">
         <motion.div
           className="world2050__media"
@@ -13,7 +13,7 @@ export function World2050() {
           transition={{ duration: 0.6 }}
         >
           <img
-            src={assets.world2050}
+            src={assets.image2050}
             alt="World in 2050"
             width={400}
             height={480}

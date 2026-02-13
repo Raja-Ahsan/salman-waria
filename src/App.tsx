@@ -11,6 +11,8 @@ import { LatestPress } from './components/LatestPress'
 import { Testimonials } from './components/Testimonials'
 import { Contact } from './components/Contact'
 import { Blog } from './components/Blog'
+import { Brands } from './components/Brands'
+import { Section3 } from './components/Section3'
 import { Footer } from './components/Footer'
 import './App.css'
 
@@ -61,10 +63,12 @@ function App() {
         <Hero />
       </section>
       <main>
-        <About />
+        <Brands />
+        <Section3 />
         <Ventures />
         <WhatIDo />
         <World2050 />
+        <About />
         <LatestPress />
         <Testimonials />
         <Contact />
