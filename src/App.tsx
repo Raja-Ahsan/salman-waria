@@ -1,3 +1,5 @@
+import { useState, useCallback } from 'react'
+import { useVantaFog } from './hooks/useVantaFog'
 import { assets } from './lib/assets'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
@@ -13,14 +15,46 @@ import { Footer } from './components/Footer'
 import './App.css'
 
 function App() {
+  const vantaRef = useVantaFog();
+  const [mousePos, setMousePos] = useState({ x: -999, y: -999 });
+
+  const handleBannerMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  }, []);
+
+  const handleBannerMouseLeave = useCallback(() => {
+    setMousePos({ x: -999, y: -999 });
+  }, []);
+
   return (
     <>
-      <section className="banner-section" id="home" aria-label="Introduction">
+      <section
+        className="banner-section"
+        id="home"
+        aria-label="Introduction"
+        onMouseMove={handleBannerMouseMove}
+        onMouseLeave={handleBannerMouseLeave}
+      >
         <div
           className="banner-section__bg"
           style={{ backgroundImage: `url(${assets.bannerImage})` }}
           role="img"
           aria-hidden="true"
+        />
+        <div
+          ref={vantaRef}
+          className="banner-section__vanta"
+          aria-hidden="true"
+          style={
+            {
+              '--mouse-x': `${mousePos.x}px`,
+              '--mouse-y': `${mousePos.y}px`,
+            } as React.CSSProperties
+          }
         />
         <div className="banner-section__overlay" aria-hidden="true" />
         <Header />
