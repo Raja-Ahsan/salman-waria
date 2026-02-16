@@ -58,7 +58,7 @@ const SERVICES = [
 
 export function WhatIDo() {
   return (
-    <section id="what-i-do" className="section whatido" aria-labelledby="whatido-heading">
+    <section id="what-i-do" className="whatido" aria-labelledby="whatido-heading">
       <div className="container whatido__inner">
         
 

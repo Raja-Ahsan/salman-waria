@@ -25,6 +25,9 @@ export function About() {
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
         >
+          <motion.h2 id="about-heading" className="about__heading" variants={item}>
+            ABOUT
+          </motion.h2>
           <motion.p className="about__body" variants={item}>
             I&apos;m a global Entrepreneur and technology evangelist alongside a Visionary Pioneer
             for building impactful businesses. My focus spans AI, blockchain, and sustainable tech
@@ -36,9 +39,22 @@ export function About() {
             variants={item}
             whileHover={{ x: 4 }}
           >
-            Read More
+            Learn More
           </motion.a>
         </motion.div>
+
+        <div className="about__logo-wrap" aria-hidden="true">
+          <img
+            src={assets.section7Logo}
+            alt=""
+            className="about__logo"
+            width={160}
+            height={160}
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = assets.logo;
+            }}
+          />
+        </div>
 
         <motion.div
           className="about__media"
@@ -48,10 +64,13 @@ export function About() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <img
-            src={assets.aboutPodium}
-            alt="Salman Waria speaking at ALTECH"
+            src={assets.aboutPhoto}
+            alt="Salman Waria"
             width={600}
             height={400}
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = assets.aboutPodium;
+            }}
           />
         </motion.div>
       </div>

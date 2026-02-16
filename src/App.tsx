@@ -68,7 +68,6 @@ function App() {
         <Ventures />
         <WhatIDo />
         <World2050 />
-        <About />
         <LatestPress />
         <Testimonials />
         <Contact />

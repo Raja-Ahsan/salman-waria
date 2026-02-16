@@ -1,12 +1,18 @@
-/* Amostely Signature: add AmostelySignature.woff2 to public/web-assets to use */
+/*
+ * Amostely Signature: loaded from CDN (index.html).
+ * To use local files instead, add e00afa5d8daa7a29f926e1e7311bf75a.woff2 and .woff
+ * to public/web-assets/Amostely Signature/WebFonts/ and uncomment the @font-face below.
+ */
+/* Local folder: public/web-assets/Amostely Signature/WebFonts/
 @font-face {
   font-family: 'Amostely Signature';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/web-assets/AmostelySignature.woff2') format('woff2'),
-       url('/web-assets/AmostelySignature.woff') format('woff');
+  src: url('/web-assets/Amostely%20Signature/WebFonts/e00afa5d8daa7a29f926e1e7311bf75a.woff2') format('woff2'),
+       url('/web-assets/Amostely%20Signature/WebFonts/e00afa5d8daa7a29f926e1e7311bf75a.woff') format('woff');
 }
+*/
 
 :root {
   --bg-primary: #0a0a0a;

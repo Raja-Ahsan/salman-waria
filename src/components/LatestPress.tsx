@@ -1,11 +1,9 @@
 import { motion } from 'framer-motion';
 import { assets } from '../lib/assets';
 
-const PRESS_LOGO_NAMES = ['Forbes', 'Entrepreneur', 'TechCrunch', 'Bloomberg'];
-
 export function LatestPress() {
   return (
-    <section id="press" className="section press" aria-labelledby="press-heading">
+    <section id="press" className="section container press" aria-labelledby="press-heading">
       <div className="container press__grid">
         <div className="press__content">
           <motion.h2
@@ -18,7 +16,8 @@ export function LatestPress() {
             LATEST PRESS
           </motion.h2>
           <p className="press__headline">
-            Decoding the future: Salman Waria&apos;s Visionary Approach to AI & Blockchain.
+            Launch Of Al-Powered Mobile Apps You Can Link To Articles Like Press Releases About
+            Logic Works And Yourself.
           </p>
           <motion.a
             href="#blog"
@@ -28,15 +27,21 @@ export function LatestPress() {
             viewport={{ once: true }}
             whileHover={{ x: 8 }}
           >
-            Read Article
+            Learn More
           </motion.a>
-          <ul className="press__logos" aria-label="As featured in">
-            {PRESS_LOGO_NAMES.map((name) => (
-              <li key={name}>
-                <span className="press__logo-name">{name}</span>
-              </li>
-            ))}
-          </ul>
+        </div>
+
+        <div className="press__logo-wrap" aria-hidden="true">
+          <img
+            src={assets.section7Logo}
+            alt=""
+            className="press__logo"
+            width={160}
+            height={160}
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = assets.logo;
+            }}
+          />
         </div>
 
         <motion.div
@@ -47,7 +52,7 @@ export function LatestPress() {
           transition={{ duration: 0.6 }}
         >
           <img
-            src={assets.press}
+            src={assets.aboutPhoto}
             alt="Salman Waria"
             width={600}
             height={400}
@@ -56,7 +61,6 @@ export function LatestPress() {
               el.src = assets.pressAlt;
             }}
           />
-          <span className="press__badge" aria-hidden />
         </motion.div>
       </div>
     </section>

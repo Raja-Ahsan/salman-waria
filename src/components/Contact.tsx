@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useVantaFog } from '../hooks/useVantaFog';
 
 export function Contact() {
+  const vantaRef = useVantaFog();
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -12,8 +14,14 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="section contact" aria-labelledby="contact-heading">
+    <section id="contact" className="container contact" aria-labelledby="contact-heading">
+      
       <div className="container contact__inner">
+      <div
+        ref={vantaRef}
+        className="contact__fog"
+        aria-hidden="true"
+      />
         <motion.h2
           id="contact-heading"
           className="contact__title"
@@ -23,6 +31,15 @@ export function Contact() {
         >
           CONTACT
         </motion.h2>
+        <motion.p
+          className="contact__subtitle"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.05 }}
+        >
+          Let&apos;s build something impactful together.
+        </motion.p>
 
         <motion.form
           className="contact__form"
@@ -55,16 +72,26 @@ export function Contact() {
             />
           </label>
           <label className="contact__label">
-            <span className="sr-only">Subject</span>
+            <span className="sr-only">Phone</span>
             <input
-              type="text"
-              name="subject"
-              placeholder="Subject"
+              type="tel"
+              name="phone"
+              placeholder="Phone"
               className="contact__input"
               disabled={status === 'sending'}
             />
           </label>
           <label className="contact__label">
+            <span className="sr-only">Project</span>
+            <input
+              type="text"
+              name="project"
+              placeholder="Project"
+              className="contact__input"
+              disabled={status === 'sending'}
+            />
+          </label>
+          <label className="contact__label contact__label--full">
             <span className="sr-only">Message</span>
             <textarea
               name="message"
@@ -82,7 +109,7 @@ export function Contact() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            {status === 'sending' ? 'SENDING...' : status === 'sent' ? 'SENT' : 'SEND'}
+            {status === 'sending' ? 'SENDING...' : status === 'sent' ? 'SENT' : 'Submit'}
           </motion.button>
         </motion.form>
       </div>

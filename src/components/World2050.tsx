@@ -28,7 +28,7 @@ export function World2050() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            WORLD. IN 2050.
+            WORLD, IN 2050
           </motion.h2>
           <motion.p
             className="world2050__subtitle"
@@ -37,7 +37,7 @@ export function World2050() {
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
           >
-            VISIONARY INSIGHTS FOR THE FUTURE.
+            THE FUTURE UNVEILED
           </motion.p>
           <motion.p
             className="world2050__body"
@@ -46,9 +46,9 @@ export function World2050() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            A vision for the future—exploring how technology, sustainability, and human
-            collaboration will reshape our world. Join the conversation and help shape what comes
-            next.
+            World In 2050: The Future Unveiled Takes You On A Gripping Journey Into The Next Three
+            Decades, Where Artificial Superintelligence, Quantum Computing, And Genetic Engineering
+            Redefine The Very Fabric Of Civilization.
           </motion.p>
           <motion.div
             initial={{ opacity: 0 }}
@@ -57,7 +57,7 @@ export function World2050() {
             transition={{ delay: 0.2 }}
           >
             <a href="#contact" className="world2050__cta">
-              Get Started
+              Get 1 Chapter Copy
             </a>
           </motion.div>
         </div>
