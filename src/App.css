@@ -2,6 +2,7 @@
 .header {
   position: relative;
   width: 100%;
+
 }
 
 .header__inner {
@@ -320,42 +321,98 @@
   transform: translateY(-2px);
 }
 
-@media (max-width: 900px) {
+/* Tablet Landscape (up to 1024px) */
+@media (max-width: 1024px) {
   .banner-section .hero {
-    padding: 2rem 0 3rem;
-    min-height: calc(100svh - 100px);
+    padding-inline: 4rem;
+    min-height: 70vh;
+  }
+
+  .hero__content {
+    max-width: 80%;
+  }
+
+  .hero__name {
+    font-size: clamp(34px, 4vw, 40px);
+  }
+
+  .hero__title {
+    font-size: clamp(3rem, 7vw, 60px);
+  }
+}
+
+/* Tablet Portrait (up to 768px) */
+@media (max-width: 768px) {
+  .header__inner {
+    padding: 0.75rem 1rem;
+    min-height: 56px;
+  }
+
+  .header__logo-img {
+    /* Existing style will be handled by inheritance or common rules */
+    width: 48px;
+    height: auto;
+    max-height: 72px;
+    aspect-ratio: 88.35 / 138.94;
+  }
+
+  .banner-section .hero {
+    /* padding: 3rem 1rem; */
+    min-height: calc(100svh - 80px);
+    display: flex;
+    align-items: center;
   }
 
   .hero__content {
     max-width: 100%;
+    text-align: left;
   }
 
   .hero__name {
-    font-size: clamp(28px, 8vw, 36px);
+    font-size: clamp(30px, 6vw, 36px);
+    margin-bottom: 0.75rem;
   }
 
   .hero__title {
-    font-size: clamp(1.5rem, 6vw, 50px);
+    font-size: clamp(2.25rem, 10vw, 52px);
+    line-height: 1;
+    margin-bottom: 2rem;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 
   .hero__cta {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.8rem;
+    padding: 0.9rem 2rem;
+    font-size: 0.9rem;
   }
 }
 
+/* Mobile (up to 480px) */
 @media (max-width: 480px) {
-  .banner-section .hero {
-    padding: 1.5rem 0 2.5rem;
+  .header__inner {
+    padding: 0.75rem 1.25rem;
   }
+
+  /* .banner-section .hero {
+    padding: 2rem 1.25rem;
+    min-height: calc(100svh - 60px);
+  } */
 
   .hero__name {
     font-size: 28px;
+    margin-bottom: 0.5rem;
   }
 
   .hero__title {
-    font-size: clamp(1.25rem, 5.5vw, 1.75rem);
-    line-height: 1.1;
+    /* font-size: clamp(2rem, 12vw, 40px); */
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .hero__cta {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
   }
 }
 
@@ -547,9 +604,9 @@
     max-width: 100%;
   }
 
-  .section3__bg {
+  /* .section3__bg {
     background-position: center;
-  }
+  } */
 }
 
 @media (max-width: 480px) {
@@ -563,7 +620,11 @@
 
   .section3__line {
     margin-bottom: 1.25rem;
+
   }
+  /* .section3__bg {
+    background-position: right;
+  } */
 }
 
 /* ========== ABOUT (7th section) ========== */
@@ -691,6 +752,7 @@
 /* ========== VENTURES (Section 4) ========== */
 .ventures {
   padding: 0;
+  margin-top: 3rem;
 }
 
 .ventures__wrap {
@@ -865,91 +927,147 @@
 
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
+  .ventures__wrap {
+    grid-template-columns: 0.55fr 0.45fr;
+  }
+  
+  .ventures__card-title {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  }
+}
+
+@media (max-width: 1024px) {
   .ventures__wrap {
     grid-template-columns: 1fr;
     min-height: auto;
-    align-items: auto;
   }
 
-  .ventures__left-inner {
-    padding-block: clamp(2rem, 6vw, var(--section-padding));
+  .ventures__left {
+    order: 2;
   }
 
   .ventures__media {
-    order: -1;
-    min-height: 280px;
+    order: 1;
+    min-height: 400px;
+    padding-block: 0;
+    margin-bottom: 2rem;
   }
 
   .ventures__media img {
-    min-height: 280px;
-    height: 280px;
-    object-fit: cover;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+
+  .ventures__view-all-wrap {
+    order: 3;
+    /* padding-top: 2rem;
+    padding-bottom: 3rem; */
   }
 
+  .ventures__left-inner {
+    padding-block: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .ventures__media {
+    min-height: 320px;
+  }
+
+  /* .ventures__media img {
+    height: 320px;
+  } */
+
+  .ventures__card {
+    padding: 1.25rem;
+  }
+
+  .ventures__card-title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
   .ventures__title {
-    font-size: clamp(1.5rem, 6vw, 2.25rem);
+    font-size: clamp(2rem, 10vw, 2.5rem);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .ventures__media {
+    min-height: 280px;
     margin-bottom: 1.5rem;
   }
 
-  .ventures__list {
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+  .ventures__media img {
+    height: 280px;
   }
 
   .ventures__card {
-    padding: 1rem 1.25rem;
-    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem;
+    text-align: left;
   }
 
-  .ventures__view-all-wrap {
-    padding-top: 1.5rem;
+  .ventures__card-icon {
+    margin-bottom: 0.5rem;
+  }
+
+  .ventures__card-btn {
+    align-self: flex-end;
+    margin-top: -10px;
   }
 }
 
 @media (max-width: 480px) {
-  .ventures__left-inner {
-    padding-block: clamp(1.5rem, 5vw, 2.5rem);
+  .ventures__title {
+    font-size: clamp(1.75rem, 8vw, 2rem);
+    margin-bottom: 1.5rem;
   }
+  
+.ventures__media {
+  min-height: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
 
-  .ventures__media,
-  .ventures__media img {
-    min-height: 240px;
-    height: 240px;
-  }
+.ventures__media img {
+  max-width: 350px;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
 
-  .ventures__card-icon {
-    width: 32px;
-    height: 32px;
-  }
-
-  .ventures__card-icon img {
-    width: 24px;
-    height: 24px;
-  }
 
   .ventures__card {
-    padding: 0.875rem 1rem;
-    gap: 0.875rem;
+    padding: 1rem;
   }
 
   .ventures__card-title {
-    font-size: 0.8rem;
+    font-size: 1.1rem;
+    line-height: 1.2;
   }
 
   .ventures__card-desc {
-    font-size: 0.75rem;
-  }
-
-  .ventures__card-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
   }
 
   .ventures__view-all {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.8rem;
+    /* width: 100%; */
+    text-align: center;
+    padding: 1rem;
   }
 }
 
@@ -968,7 +1086,7 @@
 .whatido__bg_image {
   position: relative;
   background-color: var(--bg-secondary);
-  padding: clamp(4rem, 4vw, 4rem);
+  padding: clamp(2rem, 4vw, 4rem);
   border-radius: 8px;
 }
 
@@ -1920,9 +2038,9 @@
 .footer__name {
   display: block;
   font-family: var(--font-banner-title);
-  font-size: clamp(3rem, 12vw, 12rem);
+  font-size: clamp(2rem, 13vw, 160px);
   font-weight: 800;
-  letter-spacing: 0.02em;
+  /* letter-spacing: 0.02em; */
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.06);
   line-height: 1;
