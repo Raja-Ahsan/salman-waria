@@ -31,5 +31,5 @@ export const assets = {
     `${BASE}/${encodeURIComponent('Social Media Icon')}/Vector-2.png`,
     `${BASE}/${encodeURIComponent('Social Media Icon')}/Vector-3.png`,
   ] as const,
-  blog: [path('Group 67.jpg'), path('Group 70.jpg'), path('Rectangle 30.jpg')] as const,
+  blog: [path('blog-1.jpg'), path('blog-2.jpg'), path('blog-3.jpg')] as const,
 } as const;

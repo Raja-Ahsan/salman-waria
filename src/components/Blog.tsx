@@ -2,26 +2,14 @@ import { motion } from 'framer-motion';
 import { assets } from '../lib/assets';
 
 const POSTS = [
-  {
-    title: 'The Rise of AI in Business: A New Era',
-    date: 'FEB 24, 2026',
-    image: assets.blog[0],
-  },
-  {
-    title: 'Blockchain for Social Impact',
-    date: 'FEB 20, 2026',
-    image: assets.blog[1],
-  },
-  {
-    title: 'Future of Work: Tech & Humanity',
-    date: 'FEB 18, 2026',
-    image: assets.blog[2],
-  },
+  { title: 'DIGITAL TRANSFORMATION TIPS', image: assets.blog[0] },
+  { title: 'AI BUSINESS ADOPTION STRATEGIES', image: assets.blog[1] },
+  { title: 'GROWTH MARKETING THAT DELIVERS ROI', image: assets.blog[2] },
 ];
 
 export function Blog() {
   return (
-    <section id="blog" className="section blog" aria-labelledby="blog-heading">
+    <section id="blog" className="blog" aria-labelledby="blog-heading">
       <div className="container blog__inner">
         <motion.h2
           id="blog-heading"
@@ -58,9 +46,7 @@ export function Blog() {
                     />
                   </div>
                   <h3 className="blog__card-title">{post.title}</h3>
-                  <time className="blog__card-date" dateTime="2026-02-24">
-                    {post.date}
-                  </time>
+                  <span className="blog__card-link">Learn More</span>
                 </a>
               </article>
             </motion.li>

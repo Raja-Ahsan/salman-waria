@@ -2,11 +2,19 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { assets } from '../lib/assets';
 
+const NAV_LINKS = [
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Book', href: '#world-2050' },
+  { label: 'Blog', href: '#blog' },
+  { label: 'Contact', href: '#contact' },
+];
+
 const SOCIAL_LINKS = [
-  { name: 'Twitter', href: 'https://twitter.com/salmanwaria', icon: assets.social[0] },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/salmanwaria', icon: assets.social[1] },
-  { name: 'Instagram', href: 'https://www.instagram.com/salmanwaria', icon: assets.social[2] },
   { name: 'Facebook', href: 'https://www.facebook.com/salmanwaria', icon: assets.social[3] },
+  { name: 'Instagram', href: 'https://www.instagram.com/salmanwaria', icon: assets.social[2] },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/salmanwaria', icon: assets.social[1] },
+  { name: 'Twitter', href: 'https://twitter.com/salmanwaria', icon: assets.social[0] },
 ];
 
 export function Footer() {
@@ -27,23 +35,29 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <img
-              src={assets.logo}
-              alt=""
-              className="footer__logo-img"
-              width={48}
-              height={48}
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
-              }}
-            />
-            <span className="footer__logo-text">S.H.</span>
-            <p className="footer__copy">
-              © 2026 Salman Waria. All Rights Reserved.
-            </p>
-            <address className="footer__address">
-              123 Main Street, Suite 400, New York, NY 10001
-            </address>
+            <a href="#home" className="footer__logo">
+              <img
+                src={assets.logo}
+                alt=""
+                className="footer__logo-img"
+                width={56}
+                height={56}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+            </a>
+            <nav className="footer__nav" aria-label="Footer navigation">
+              <ul className="footer__nav-list">
+                {NAV_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <a href={link.href} className="footer__nav-link">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </motion.div>
 
           <motion.div
@@ -53,19 +67,19 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <p className="footer__newsletter-label">Subscribe to Newsletter</p>
+            <p className="footer__newsletter-label">SUBSCRIBE MY NEWSLETTER</p>
             <form onSubmit={handleSubscribe} className="footer__newsletter-form">
               <label className="sr-only" htmlFor="footer-email">Email</label>
               <input
                 id="footer-email"
                 type="email"
-                placeholder="Your email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="footer__newsletter-input"
               />
               <button type="submit" className="footer__newsletter-btn">
-                Subscribe
+                Send
               </button>
             </form>
             <ul className="footer__social">
