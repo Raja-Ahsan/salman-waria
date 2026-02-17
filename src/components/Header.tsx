@@ -13,6 +13,15 @@ const NAV_LINKS = [
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleNavClick = (link: (typeof NAV_LINKS)[0]) => {
+    setMenuOpen(false);
+    const hash = link.href?.startsWith('#') ? link.href.slice(1) : null;
+    if (hash) {
+      const el = document.getElementById(hash);
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <motion.header
       className="header"
@@ -43,7 +52,7 @@ export function Header() {
                   <Link
                     to={link.to}
                     className="header__nav-link"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => handleNavClick(link)}
                   >
                     {link.label}
                   </Link>
@@ -90,7 +99,7 @@ export function Header() {
                   >
                     <Link
                       to={link.to}
-                      onClick={() => setMenuOpen(false)}
+                      onClick={() => handleNavClick(link)}
                     >
                       {link.label}
                     </Link>
