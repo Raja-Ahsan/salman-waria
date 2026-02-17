@@ -69,7 +69,7 @@ export function About() {
             width={600}
             height={400}
             onError={(e) => {
-              (e.target as HTMLImageElement).src = assets.aboutPodium;
+              (e.target as HTMLImageElement).src = assets.logo;
             }}
           />
         </motion.div>
