@@ -3,7 +3,7 @@ import { useVantaFog } from './hooks/useVantaFog'
 import { assets } from './lib/assets'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
-import { About } from './components/About'
+// import { About } from './components/About'
 import { Ventures } from './components/Ventures'
 import { WhatIDo } from './components/WhatIDo'
 import { World2050 } from './components/World2050'
@@ -63,6 +63,7 @@ function App() {
         <Hero />
       </section>
       <main>
+      
         <Brands />
         <Section3 />
         <Ventures />
