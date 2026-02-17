@@ -3,7 +3,7 @@ import { assets } from '../lib/assets';
 
 export function World2050() {
   return (
-    <section id="world-2050" className="world2050" aria-labelledby="world2050-heading">
+    <section id="book" className="world2050" aria-labelledby="world2050-heading">
       <div className="container world2050__grid">
         <motion.div
           className="world2050__media"
@@ -56,7 +56,7 @@ export function World2050() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <a href="#contact" className="world2050__cta">
+            <a href="/bookdetails" className="world2050__cta">
               Get 1 Chapter Copy
             </a>
           </motion.div>

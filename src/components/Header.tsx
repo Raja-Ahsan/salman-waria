@@ -5,8 +5,8 @@ import { assets } from '../lib/assets';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/', to: '/' },
-  { label: 'About', href: '/about', to: '/about' },
-  { label: 'Book', href: '#world-2050', to: '/#world-2050' },
+  { label: 'About', href: '#about', to: '/#about' },
+  { label: 'Book', href: '#book', to: '/#book' },
   { label: 'Blog', href: '#blog', to: '/#blog' },
 ];
 
@@ -34,7 +34,7 @@ export function Header() {
         <nav className="header__nav" aria-label="Main navigation">
           <ul className="header__nav-list">
             {NAV_LINKS.map((link, i) => (
-              <li key={link.to}>
+              <li key={link.to ?? link.href}>
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -83,7 +83,7 @@ export function Header() {
               <ul className="header__mobile-list">
                 {NAV_LINKS.map((link, i) => (
                   <motion.li
-                    key={link.to}
+                    key={link.to ?? link.href}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.03 * i }}

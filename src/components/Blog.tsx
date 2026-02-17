@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { assets } from '../lib/assets';
 
 const POSTS = [
@@ -52,6 +53,17 @@ export function Blog() {
             </motion.li>
           ))}
         </ul>
+
+        <motion.div
+          className="blog__more-wrap"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <Link to="/blogsdetails" className="blog__more-btn">
+            More Blogs
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { assets } from '../lib/assets';
 
 export function Section3() {
   return (
-    <section className="section section3" id="about" aria-labelledby="section3-heading">
+    <section id="about" className="section section3"  aria-labelledby="section3-heading">
       <div
         className="section3__bg"
         style={{ backgroundImage: `url(${assets.section3})` }}
@@ -29,6 +30,9 @@ export function Section3() {
             different regions, helping brands grow through innovation, creativity, and
             smart digital solutions.
           </p>
+          <Link to="/about" className="section3__read-more">
+            Read More
+          </Link>
         </motion.div>
         <div className="section3__spacer" aria-hidden="true" />
       </div>

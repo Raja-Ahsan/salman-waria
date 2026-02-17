@@ -5,7 +5,7 @@ import { assets } from '../lib/assets';
 const NAV_LINKS = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
-  { label: 'Book', href: '#world-2050' },
+  { label: 'Book', href: '#book' },
   { label: 'Blog', href: '#blog' },
   { label: 'Contact', href: '#contact' },
 ];

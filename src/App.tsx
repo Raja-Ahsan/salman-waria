@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { useState, useCallback, useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { useVantaFog } from './hooks/useVantaFog'
 import { assets } from './lib/assets'
 import { Header } from './components/Header'
@@ -17,11 +17,28 @@ import { Section3 } from './components/Section3'
 import { Footer } from './components/Footer'
 import { Layout } from './components/Layout'
 import AboutPage from './innerpages/aboutpage'
+import BlogsDetails from './innerpages/blogsdetails'
+import BookDetails from './innerpages/bookdetails'
 import './App.css'
 
 function HomePage() {
   const vantaRef = useVantaFog();
+  const location = useLocation();
   const [mousePos, setMousePos] = useState({ x: -999, y: -999 });
+
+  useEffect(() => {
+    if (location.hash === '#about') {
+      const el = document.getElementById('about');
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (location.hash === '#book') {
+      const el = document.getElementById('book');
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    else if (location.hash === '#blog') {
+      const el = document.getElementById('blog');
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [location.pathname, location.hash]);
 
   const handleBannerMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -85,11 +102,13 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/about" element={<Layout />}>
-        <Route index element={<AboutPage />} />
+      <Route element={<Layout />}>
+        <Route path="about" element={<AboutPage />} />
+        <Route path="blogsdetails" element={<BlogsDetails />} />
+        <Route path="bookdetails" element={<BookDetails />} />
       </Route>
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
