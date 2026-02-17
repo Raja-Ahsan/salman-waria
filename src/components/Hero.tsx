@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 export function Hero() {
   return (
-    <div className="container hero">
+    <div id="home" className="container hero">
       <div className="hero__content">
         <motion.h1
           className="hero__name"

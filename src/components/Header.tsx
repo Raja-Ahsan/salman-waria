@@ -5,7 +5,7 @@ import { assets } from '../lib/assets';
 const NAV_LINKS = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
-  { label: 'Book', href: '#contact' },
+  { label: 'Book', href: '#world-2050' },
   { label: 'Blog', href: '#blog' },
 ];
 
@@ -84,7 +84,16 @@ export function Header() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.03 * i }}
                   >
-                    <a href={link.href} onClick={() => setMenuOpen(false)}>
+                    <a href={link.href} onClick={(e) => {
+  e.preventDefault();
+  const target = document.querySelector(link.href);
+  setMenuOpen(false);
+
+  setTimeout(() => {
+    target?.scrollIntoView({ behavior: 'smooth' });
+  }, 300); // match your exit animation duration
+}}
+>
                       {link.label}
                     </a>
                   </motion.li>

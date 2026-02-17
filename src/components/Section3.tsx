@@ -3,7 +3,7 @@ import { assets } from '../lib/assets';
 
 export function Section3() {
   return (
-    <section className="section section3" id="intro" aria-labelledby="section3-heading">
+    <section className="section section3" id="about" aria-labelledby="section3-heading">
       <div
         className="section3__bg"
         style={{ backgroundImage: `url(${assets.section3})` }}
