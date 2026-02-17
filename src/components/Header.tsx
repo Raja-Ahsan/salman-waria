@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { assets } from '../lib/assets';
 
@@ -10,13 +10,26 @@ const NAV_LINKS = [
   { label: 'Blog', href: '#blog', to: '/#blog' },
 ];
 
+const PAGE_TO_HASH: Record<string, string> = {
+  '/about': '#about',
+  '/bookdetails': '#book',
+  '/blogsdetails': '#blog',
+};
+
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
-  const handleNavClick = (link: (typeof NAV_LINKS)[0]) => {
+  const handleNavClick = (link: (typeof NAV_LINKS)[0], e: React.MouseEvent) => {
     setMenuOpen(false);
+    const currentHash = PAGE_TO_HASH[location.pathname];
+    const isSamePage = link.href === currentHash;
+    if (isSamePage) {
+      e.preventDefault();
+      return;
+    }
     const hash = link.href?.startsWith('#') ? link.href.slice(1) : null;
-    if (hash) {
+    if (hash && location.pathname === '/') {
       const el = document.getElementById(hash);
       el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -52,7 +65,7 @@ export function Header() {
                   <Link
                     to={link.to}
                     className="header__nav-link"
-                    onClick={() => handleNavClick(link)}
+                    onClick={(e) => handleNavClick(link, e)}
                   >
                     {link.label}
                   </Link>
@@ -99,7 +112,7 @@ export function Header() {
                   >
                     <Link
                       to={link.to}
-                      onClick={() => handleNavClick(link)}
+                      onClick={(e) => handleNavClick(link, e)}
                     >
                       {link.label}
                     </Link>
