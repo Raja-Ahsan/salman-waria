@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { useVantaFog } from './hooks/useVantaFog'
 import { assets } from './lib/assets'
 import { Header } from './components/Header'
@@ -14,9 +15,11 @@ import { Blog } from './components/Blog'
 import { Brands } from './components/Brands'
 import { Section3 } from './components/Section3'
 import { Footer } from './components/Footer'
+import { Layout } from './components/Layout'
+import AboutPage from './innerpages/aboutpage'
 import './App.css'
 
-function App() {
+function HomePage() {
   const vantaRef = useVantaFog();
   const [mousePos, setMousePos] = useState({ x: -999, y: -999 });
 
@@ -63,7 +66,6 @@ function App() {
         <Hero />
       </section>
       <main>
-      
         <Brands />
         <Section3 />
         <Ventures />
@@ -76,6 +78,17 @@ function App() {
       </main>
       <Footer />
     </>
+  )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/about" element={<Layout />}>
+        <Route index element={<AboutPage />} />
+      </Route>
+    </Routes>
   )
 }
 

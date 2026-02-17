@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { assets } from '../lib/assets';
 
 const NAV_LINKS = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Book', href: '#world-2050' },
-  { label: 'Blog', href: '#blog' },
+  { label: 'Home', href: '/', to: '/' },
+  { label: 'About', href: '/about', to: '/about' },
+  { label: 'Book', href: '#world-2050', to: '/#world-2050' },
+  { label: 'Blog', href: '#blog', to: '/#blog' },
 ];
 
 export function Header() {
@@ -20,7 +21,7 @@ export function Header() {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="container header__inner">
-        <a href="#home" className="header__logo" aria-label="Salman Waria Home">
+        <Link to="/" className="header__logo" aria-label="Salman Waria Home">
           <img
             src={assets.logo}
             alt="Salman Waria"
@@ -28,22 +29,25 @@ export function Header() {
             width={88}
             height={139}
           />
-        </a>
+        </Link>
 
         <nav className="header__nav" aria-label="Main navigation">
           <ul className="header__nav-list">
             {NAV_LINKS.map((link, i) => (
-              <li key={link.href}>
-                <motion.a
-                  href={link.href}
-                  className="header__nav-link"
+              <li key={link.to}>
+                <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 * i, duration: 0.4 }}
-                  onClick={() => setMenuOpen(false)}
                 >
-                  {link.label}
-                </motion.a>
+                  <Link
+                    to={link.to}
+                    className="header__nav-link"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               </li>
             ))}
           </ul>
@@ -79,23 +83,17 @@ export function Header() {
               <ul className="header__mobile-list">
                 {NAV_LINKS.map((link, i) => (
                   <motion.li
-                    key={link.href}
+                    key={link.to}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.03 * i }}
                   >
-                    <a href={link.href} onClick={(e) => {
-  e.preventDefault();
-  const target = document.querySelector(link.href);
-  setMenuOpen(false);
-
-  setTimeout(() => {
-    target?.scrollIntoView({ behavior: 'smooth' });
-  }, 300); // match your exit animation duration
-}}
->
+                    <Link
+                      to={link.to}
+                      onClick={() => setMenuOpen(false)}
+                    >
                       {link.label}
-                    </a>
+                    </Link>
                   </motion.li>
                 ))}
               </ul>
