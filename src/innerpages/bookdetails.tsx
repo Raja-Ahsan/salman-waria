@@ -157,7 +157,7 @@ const BookDetails: React.FC = () => {
                 clickEventForward={true}
                 useMouseEvents={true}
                 swipeDistance={isMobile ? 15 : 30} // Easier to swipe on mobile
-                showPageCorners={!isMobile} // Less accidental flips on mobile
+                showPageCorners={!isMobile} 
                 disableFlipByClick={false}
               >
                 {Array.from(new Array(numPages), (_, index) => (
