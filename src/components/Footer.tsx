@@ -11,10 +11,10 @@ const NAV_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { name: 'Facebook', href: 'https://www.facebook.com/salmanwaria', icon: assets.social[3] },
-  { name: 'Instagram', href: 'https://www.instagram.com/salmanwaria', icon: assets.social[2] },
+  { name: 'Facebook', href: 'https://www.facebook.com/salmanwaria', icon: assets.social[0] },
   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/salmanwaria', icon: assets.social[1] },
-  { name: 'Twitter', href: 'https://twitter.com/salmanwaria', icon: assets.social[0] },
+  { name: 'Instagram', href: 'https://www.instagram.com/salmanwaria', icon: assets.social[2] },
+  { name: 'Twitter', href: 'https://twitter.com/salmanwaria', icon: assets.social[3] },
 ];
 
 export function Footer() {

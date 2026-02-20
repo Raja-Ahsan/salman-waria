@@ -6,6 +6,7 @@ const VENTURES = [
   {
     title: 'AMERICAN DIGITAL AGENCY',
     description: 'Helping Businesses Grow By Connecting Brands With Audiences in Meaningful Ways',
+    
   },
   {
     title: 'LOGIC WORK',
