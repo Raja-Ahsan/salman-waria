@@ -21,6 +21,14 @@ import BlogsDetails from './innerpages/blogsdetails'
 import BookDetails from './innerpages/bookdetails'
 import './App.css'
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function HomePage() {
   const vantaRef = useVantaFog();
   const location = useLocation();
@@ -100,7 +108,9 @@ function HomePage() {
 
 function App() {
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       <Route path="/" element={<HomePage />} />
       <Route element={<Layout />}>
         <Route path="about" element={<AboutPage />} />
@@ -108,6 +118,7 @@ function App() {
         <Route path="bookdetails" element={<BookDetails />} />
       </Route>
     </Routes>
+    </>
   );
 }
 

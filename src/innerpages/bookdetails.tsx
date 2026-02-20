@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, startTransition } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import HTMLFlipBook from 'react-pageflip';
 
@@ -42,12 +42,19 @@ const BookDetails: React.FC = () => {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [showContent, setShowContent] = useState(false);
   const [dimensions, setDimensions] = useState({
     width: 550,
     height: 750,
   });
 
   const flipBookRef = useRef<any>(null);
+
+  // Defer heavy content so Layout (Header + Footer) paints first
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setShowContent(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   // Handle responsiveness
   const handleResize = useCallback(() => {
@@ -90,8 +97,8 @@ const BookDetails: React.FC = () => {
     return () => window.removeEventListener('resize', debouncedResize);
   }, [handleResize]);
 
-  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
-    setNumPages(numPages);
+  const onDocumentLoadSuccess = ({ numPages: n }: { numPages: number }) => {
+    startTransition(() => setNumPages(n));
   };
 
   const onFlip = (e: any) => {
@@ -111,10 +118,13 @@ const BookDetails: React.FC = () => {
 
   return (
     <div className="book-details-viewer">
- 
       <div className="viewer-container">
         <h1 className="book-viewer-heading">WORLD, IN 2050</h1>
-        
+
+        {!showContent ? (
+          <div className="book-loader">Opening Book...</div>
+        ) : (
+        <>
         <Document
           file="/book.pdf"
           onLoadSuccess={onDocumentLoadSuccess}
@@ -192,6 +202,8 @@ const BookDetails: React.FC = () => {
               }
             </span>
           </div>
+        )}
+        </>
         )}
       </div>
     </div>
