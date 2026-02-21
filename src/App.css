@@ -2572,6 +2572,7 @@
   background-image: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%);
   position: relative;
   overflow: hidden;
+
 }
 
 .viewer-container {
@@ -2721,10 +2722,112 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+  background-image: url("./assets/images/paper-fibers.png");
   opacity: 0.05;
   pointer-events: none;
   z-index: 5;
+}
+
+/* Premium Cover Styling */
+.cover-front {
+  background-color: #111 !important;
+  color: #fff;
+  overflow: hidden;
+}
+
+.cover-front .page-content {
+  box-shadow: none;
+  height: 100%;
+}
+
+.cover-inner {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Deep textured background */
+  background-color: #1a1a1a;
+}
+
+.cover-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+  z-index: 1;
+}
+
+.cover-content {
+  position: relative;
+  z-index: 2;
+  padding: 3.5rem 2rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  width: 80%;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.cover-title {
+  font-family: var(--font-banner-title, inherit);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  margin: 0;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1.2;
+  text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.cover-line {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #fff, transparent);
+  margin: 2rem auto;
+}
+
+.cover-subtitle {
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+.cover-footer {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1.5rem;
+}
+
+/* Page density/hard cover styling */
+.book-page[data-density="hard"] {
+  background-color: #1a1a1a !important;
+}
+
+.book-page[data-density="hard"] .page-content {
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.book-page[data-density="hard"]::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+  z-index: 10;
 }
 
 /* Page Loader Spinner */

@@ -1,130 +1,130 @@
-import React, { useState, useEffect, useCallback, useRef, startTransition } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
-import HTMLFlipBook from 'react-pageflip';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  startTransition,
+  memo,
+  forwardRef,
+} from "react";
+import { Document, Page, pdfjs } from "react-pdf";
+import HTMLFlipBook from "react-pageflip";
+import BookCover from "../assets/images/paper-fibers.png";
+import { GrFormPrevious } from "react-icons/gr";
+import { GrFormNext } from "react-icons/gr";
 
-// PDF.js worker setup
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
+
+// PDF Worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
+const A4_RATIO = 1.414;
 
+/* ================= PAGE ================= */
 interface PageProps {
   pageNumber: number;
   width: number;
   height: number;
 }
 
-// Memoized Page Wrapper for performance optimization
-const PageWrapper = React.memo(React.forwardRef<HTMLDivElement, PageProps>((props, ref) => {
-  return (
-    <div className="book-page" ref={ref} data-density="soft">
+const PageWrapper = memo(
+  forwardRef<HTMLDivElement, PageProps>(
+    ({ pageNumber, width, height }, ref) => (
+      <div className="book-page" ref={ref} data-density="soft">
+        <div className="page-content">
+          <Page
+            pageNumber={pageNumber}
+            width={width}
+            height={height}
+            renderTextLayer={false}
+            renderAnnotationLayer={false}
+            loading={
+              <div className="page-loader">
+                <div className="mini-spinner" />
+              </div>
+            }
+          />
+          <div className="page-shadow" />
+        </div>
+      </div>
+    )
+  )
+);
+
+/* ================= COVER ================= */
+const Cover = memo(
+  forwardRef<HTMLDivElement, { title: string }>(({ title }, ref) => (
+    <div className="book-page cover-front" ref={ref} data-density="hard">
       <div className="page-content">
-        <Page
-          pageNumber={props.pageNumber}
-          width={props.width}
-          height={props.height}
-          renderTextLayer={false}
-          renderAnnotationLayer={false}
-          loading={
-            <div className="page-loader">
-              <div className="mini-spinner"></div>
-            </div>
-          }
-        />
-        {/* Spine Shadow Effect */}
-        <div className="page-shadow"></div>
+        <div
+          className="cover-inner"
+          style={{ backgroundImage: `url(${BookCover})` }}
+        >
+          <div className="cover-content">
+            <h2 className="cover-title">{title}</h2>
+            <div className="cover-line" />
+            <p className="cover-subtitle">EDITION 2050</p>
+            <div className="cover-footer">PRESS TO OPEN</div>
+          </div>
+        </div>
+        <div className="page-shadow" />
       </div>
     </div>
-  );
-}));
+  ))
+);
 
+/* ================= MAIN ================= */
 const BookDetails: React.FC = () => {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [showContent, setShowContent] = useState(false);
-  const [dimensions, setDimensions] = useState({
-    width: 550,
-    height: 750,
-  });
+  const [dimensions, setDimensions] = useState({ width: 550, height: 750 });
 
   const flipBookRef = useRef<any>(null);
 
-  // Defer heavy content so Layout (Header + Footer) paints first
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setShowContent(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
-
-  // Handle responsiveness
+  /* ---------- Resize ---------- */
   const handleResize = useCallback(() => {
     const width = window.innerWidth;
     const mobile = width < 768;
-    
-    // If view mode changes, we might want to reset certain things
-    if (mobile !== isMobile) {
-      setIsMobile(mobile);
-    }
 
-    if (mobile) {
-      // Mobile: Full width minus some padding
-      const newWidth = Math.min(width - 20, 450);
-       // Use a standard portrait ratio or calculate from first page
-      const ratio = 1.414; // A4 ratio is common for PDFs
-      setDimensions({
-        width: newWidth,
-        height: Math.floor(newWidth * ratio),
-      });
-    } else {
-      // Desktop: Spread view
-      // Available width for ONE page in the spread
-      const availableWidth = Math.min((width - 240) / 2, 550);
-      const ratio = 1.414;
-      setDimensions({
-        width: Math.floor(availableWidth),
-        height: Math.floor(availableWidth * ratio),
-      });
-    }
-  }, [isMobile]);
+    setIsMobile(mobile);
+
+    const pageWidth = mobile
+      ? Math.min(width - 20, 450)
+      : Math.min((width - 240) / 2, 550);
+
+    setDimensions({
+      width: Math.floor(pageWidth),
+      height: Math.floor(pageWidth * A4_RATIO),
+    });
+  }, []);
 
   useEffect(() => {
     handleResize();
-    const debouncedResize = () => {
-      clearTimeout((window as any).resizeTimeout);
-      (window as any).resizeTimeout = setTimeout(handleResize, 100);
+    const resizeListener = () => {
+      clearTimeout((window as any).__resizeTimer);
+      (window as any).__resizeTimer = setTimeout(handleResize, 100);
     };
-    window.addEventListener('resize', debouncedResize);
-    return () => window.removeEventListener('resize', debouncedResize);
+    window.addEventListener("resize", resizeListener);
+    return () => window.removeEventListener("resize", resizeListener);
   }, [handleResize]);
 
-  const onDocumentLoadSuccess = ({ numPages: n }: { numPages: number }) => {
-    startTransition(() => setNumPages(n));
-  };
+  /* ---------- PDF Load ---------- */
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) =>
+    startTransition(() => setNumPages(numPages));
 
-  const onFlip = (e: any) => {
-    setCurrentPage(e.data);
-  };
+  /* ---------- Navigation ---------- */
+  const flip = (dir: "next" | "prev") =>
+    flipBookRef.current?.pageFlip()[dir === "next" ? "flipNext" : "flipPrev"]();
 
-  const prevPage = () => {
-    flipBookRef.current?.pageFlip().flipPrev();
-  };
-
-  const nextPage = () => {
-    flipBookRef.current?.pageFlip().flipNext();
-  };
-
-  // Re-mount flipbook when switching modes to prevent layout distortion
-  const flipbookKey = isMobile ? 'mobile' : 'desktop';
+  const flipbookKey = isMobile ? "mobile" : "desktop";
 
   return (
     <div className="book-details-viewer">
       <div className="viewer-container">
         <h1 className="book-viewer-heading">WORLD, IN 2050</h1>
 
-        {!showContent ? (
-          <div className="book-loader">Opening Book...</div>
-        ) : (
-        <>
         <Document
           file="/book.pdf"
           onLoadSuccess={onDocumentLoadSuccess}
@@ -132,78 +132,76 @@ const BookDetails: React.FC = () => {
         >
           {numPages && (
             <div className="flipbook-wrapper">
-              {/* Navigation Arrows */}
-              <button 
-                className="nav-arrow prev" 
-                onClick={prevPage}
+              <button
+                className="nav-arrow prev"
+                onClick={() => flip("prev")}
                 disabled={currentPage === 0}
-                aria-label="Previous Page"
               >
-                <span>&lt;</span>
+                <GrFormPrevious size={30}/>
               </button>
 
               <HTMLFlipBook
                 key={flipbookKey}
+                ref={flipBookRef}
                 width={dimensions.width}
                 height={dimensions.height}
+                minWidth={200}
+                maxWidth={800}
+                minHeight={280}
+                maxHeight={1130}
                 size="fixed"
-                minWidth={100}
-                maxWidth={1200}
-                minHeight={100}
-                maxHeight={2000}
-                drawShadow={true}
-                flippingTime={isMobile ? 600 : 800} // Snappier on mobile
-                usePortrait={isMobile}
                 startPage={0}
-                showCover={false}
-                autoSize={true}
-                maxShadowOpacity={0.4}
-                mobileScrollSupport={true}
-                onFlip={onFlip}
-                ref={flipBookRef}
-                className="pdf-flipbook"
-                style={{ backgroundColor: 'transparent' }}
+                drawShadow
+                flippingTime={isMobile ? 600 : 800}
+                usePortrait={isMobile}
                 startZIndex={0}
-                clickEventForward={true}
-                useMouseEvents={true}
-                swipeDistance={isMobile ? 15 : 30} // Easier to swipe on mobile
-                showPageCorners={!isMobile} 
+                maxShadowOpacity={1}
+                showCover
+                autoSize
+                mobileScrollSupport
+                clickEventForward
+                useMouseEvents
+                onFlip={(e: any) => setCurrentPage(e.data)}
+                swipeDistance={isMobile ? 15 : 30}
+                showPageCorners={!isMobile}
                 disableFlipByClick={false}
+                className="pdf-flipbook"
+                style={{ backgroundColor: "transparent" }}
               >
-                {Array.from(new Array(numPages), (_, index) => (
+                <Cover title="WORLD, IN 2050" />
+
+                {Array.from({ length: numPages }).map((_, i) => (
                   <PageWrapper
-                    key={`page_${index + 1}`}
-                    pageNumber={index + 1}
+                    key={i}
+                    pageNumber={i + 1}
                     width={dimensions.width}
                     height={dimensions.height}
                   />
                 ))}
               </HTMLFlipBook>
 
-              <button 
-                className="nav-arrow next" 
-                onClick={nextPage}
-                disabled={currentPage >= numPages - (isMobile ? 1 : 2)}
-                aria-label="Next Page"
+              <button
+                className="nav-arrow next"
+                onClick={() => flip("next")}
+                disabled={
+                  currentPage >= numPages - (isMobile ? 1 : 2)
+                }
               >
-                <span>&gt;</span>
+                <GrFormNext  size={30}/>
               </button>
             </div>
           )}
         </Document>
 
-        {/* Floating Page Counter */}
         {numPages && (
           <div className="page-counter">
-            <span>
-              {isMobile 
-                ? `Page ${currentPage + 1} of ${numPages}`
-                : `Pages ${currentPage + 1}-${Math.min(currentPage + 2, numPages)} of ${numPages}`
-              }
-            </span>
+            {isMobile
+              ? `Page ${currentPage + 1} of ${numPages}`
+              : `Pages ${currentPage + 1}-${Math.min(
+                  currentPage + 2,
+                  numPages
+                )} of ${numPages}`}
           </div>
-        )}
-        </>
         )}
       </div>
     </div>
