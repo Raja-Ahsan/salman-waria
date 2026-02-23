@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import HTMLFlipBook from "react-pageflip";
-import BookCover from "../assets/images/paper-fibers.png";
+import BookCover from "../assets/images/book-cover.webp";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 
@@ -54,20 +54,15 @@ const PageWrapper = memo(
 
 /* ================= COVER ================= */
 const Cover = memo(
-  forwardRef<HTMLDivElement, { title: string }>(({ title }, ref) => (
+  forwardRef<HTMLDivElement, {}>(({}, ref) => (
     <div className="book-page cover-front" ref={ref} data-density="hard">
       <div className="page-content">
         <div
           className="cover-inner"
           style={{ backgroundImage: `url(${BookCover})` }}
         >
-          <div className="cover-content">
-            <h2 className="cover-title">{title}</h2>
-            <div className="cover-line" />
-            <p className="cover-subtitle">EDITION 2050</p>
-            <div className="cover-footer">PRESS TO OPEN</div>
-          </div>
-        </div>
+         
+        </div>  
         <div className="page-shadow" />
       </div>
     </div>
@@ -132,6 +127,7 @@ const BookDetails: React.FC = () => {
         >
           {numPages && (
             <div className="flipbook-wrapper">
+              {!isMobile && <div className="" />}
               <button
                 className="nav-arrow prev"
                 onClick={() => flip("prev")}
@@ -168,7 +164,7 @@ const BookDetails: React.FC = () => {
                 className="pdf-flipbook"
                 style={{ backgroundColor: "transparent" }}
               >
-                <Cover title="WORLD, IN 2050" />
+                <Cover  />
 
                 {Array.from({ length: numPages }).map((_, i) => (
                   <PageWrapper

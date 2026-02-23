@@ -11,10 +11,10 @@ const NAV_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { name: 'Facebook', href: 'https://www.facebook.com/salmanwaria', icon: assets.social[0] },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/salmanwaria', icon: assets.social[1] },
-  { name: 'Instagram', href: 'https://www.instagram.com/salmanwaria', icon: assets.social[2] },
-  { name: 'Twitter', href: 'https://twitter.com/salmanwaria', icon: assets.social[3] },
+  { name: 'Facebook', href: 'https://www.facebook.com/salmanwariaofficial', icon: assets.social[0] },
+  { name: 'LinkedIn', href: 'https://ae.linkedin.com/in/salman-waria-tech-entrepreneur', icon: assets.social[1] },
+  { name: 'Instagram', href: 'https://www.instagram.com/salman.waria/', icon: assets.social[2] },
+  { name: 'IMDB', href: 'https://www.imdb.com/name/nm11841602/', icon: assets.social[3] },
 ];
 
 export function Footer() {

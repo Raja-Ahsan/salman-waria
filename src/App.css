@@ -2606,6 +2606,18 @@
   padding: 0 60px;
 }
 
+.book-spine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--bg-primary-black);
+  z-index: 50;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
 .pdf-flipbook {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
   transition: all 0.3s ease;
@@ -2757,7 +2769,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+  /* background: radial-gradient(circle at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%); */
   z-index: 1;
 }
 
