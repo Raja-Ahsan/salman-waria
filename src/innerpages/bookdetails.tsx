@@ -20,6 +20,8 @@ import "react-pdf/dist/Page/TextLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const A4_RATIO = 1.414;
+const FREE_PAGES_LIMIT = 15; // User can read only up to page 6, then "Buy Now" page
+const TOTAL_FLIPBOOK_PAGES = 1 + FREE_PAGES_LIMIT + 1; // cover + 6 PDF + Buy Now page
 
 /* ================= PAGE ================= */
 interface PageProps {
@@ -69,6 +71,23 @@ const Cover = memo(
   ))
 );
 
+/* ================= BUY NOW PAGE ================= */
+const BuyNowPage = memo(
+  forwardRef<HTMLDivElement, {}>(({}, ref) => (
+    <div className="book-page book-buy-now-page" ref={ref} data-density="soft">
+      <div className="page-content">
+        <div className="book-buy-now-page-inner">
+          <p className="book-buy-now-text">Enjoyed the preview? Get the full book to continue reading.</p>
+          <a href="https://www.amazon.com/World-2050-Salman-Waria-ebook/dp/B0GFY23QP2/ref=tmm_kin_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.PBG-mFrGUgrl94o4BOCVQuho7yuCOrzXme6rU20aCZxHaHiw2fU9rWgPR4Ebh2bIRJU9e19YVEvgDbqkDtFQkXxAc4ai9Fr7i4iUNh0splXb-i3kc6eYs7moZ5I4tg0VQjS_OR5E9zgQCyZgLKGSgPJ1WgRYoBZjgNvIUA2QLUi5CsE2E5rkrSRCP4bkGe_ynMrQfkjFKvAQH-nfdZ_SCs8Oq0ByiZIt5oUb5_RAHwQ.SuN81h4m0UJJZ57Vd6YP6Un2dcLDznSwFaP4XCah8Dc&qid=1770239182&sr=1-1" target="_blank" className="book-buy-now-btn">
+            Buy Now just for $9.99
+          </a>
+        </div>
+        <div className="page-shadow" />
+      </div>
+    </div>
+  ))
+);
+
 /* ================= MAIN ================= */
 const BookDetails: React.FC = () => {
   const [numPages, setNumPages] = useState<number | null>(null);
@@ -110,8 +129,22 @@ const BookDetails: React.FC = () => {
     startTransition(() => setNumPages(numPages));
 
   /* ---------- Navigation ---------- */
+  const lastAllowedPage = TOTAL_FLIPBOOK_PAGES - 1; // last page = Buy Now (index 7)
+
   const flip = (dir: "next" | "prev") =>
     flipBookRef.current?.pageFlip()[dir === "next" ? "flipNext" : "flipPrev"]();
+
+  const handleFlip = useCallback(
+    (e: { data: number }) => {
+      const nextPage = e.data;
+      if (nextPage > lastAllowedPage) {
+        flipBookRef.current?.pageFlip()?.turnToPage(lastAllowedPage);
+        return;
+      }
+      setCurrentPage(nextPage);
+    },
+    [lastAllowedPage]
+  );
 
   const flipbookKey = isMobile ? "mobile" : "desktop";
 
@@ -157,7 +190,7 @@ const BookDetails: React.FC = () => {
                 mobileScrollSupport
                 clickEventForward
                 useMouseEvents
-                onFlip={(e: any) => setCurrentPage(e.data)}
+                onFlip={handleFlip}
                 swipeDistance={isMobile ? 15 : 30}
                 showPageCorners={!isMobile}
                 disableFlipByClick={false}
@@ -166,7 +199,7 @@ const BookDetails: React.FC = () => {
               >
                 <Cover  />
 
-                {Array.from({ length: numPages }).map((_, i) => (
+                {Array.from({ length: Math.min(numPages, FREE_PAGES_LIMIT) }).map((_, i) => (
                   <PageWrapper
                     key={i}
                     pageNumber={i + 1}
@@ -174,31 +207,31 @@ const BookDetails: React.FC = () => {
                     height={dimensions.height}
                   />
                 ))}
+                <BuyNowPage />
               </HTMLFlipBook>
 
               <button
                 className="nav-arrow next"
                 onClick={() => flip("next")}
-                disabled={
-                  currentPage >= numPages - (isMobile ? 1 : 2)
-                }
+                disabled={currentPage >= lastAllowedPage}
               >
                 <GrFormNext  size={30}/>
               </button>
             </div>
           )}
         </Document>
+{/* Page counter */}
 
-        {numPages && (
+        {/* {numPages && (
           <div className="page-counter">
             {isMobile
-              ? `Page ${currentPage + 1} of ${numPages}`
+              ? `Page ${currentPage + 1} of ${TOTAL_FLIPBOOK_PAGES}`
               : `Pages ${currentPage + 1}-${Math.min(
                   currentPage + 2,
-                  numPages
-                )} of ${numPages}`}
+                  TOTAL_FLIPBOOK_PAGES
+                )} of ${TOTAL_FLIPBOOK_PAGES}`}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

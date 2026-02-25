@@ -2712,6 +2712,54 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
+/* Buy Now - dedicated new page */
+.book-buy-now-page .page-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+}
+.book-buy-now-page-inner {
+  text-align: center;
+  padding: 2rem;
+}
+.book-buy-now-text {
+  margin: 0 0 1.5rem;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+text-align: center;
+}
+.book-buy-now-btn {
+  display: inline-block;
+  padding: 0.85rem 2.5rem;
+  background: #000;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border-radius: 9999px;
+  border: 2px solid #fff;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+.book-buy-now-btn:hover {
+  background: #fff;
+  color: #000;
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .book-buy-now-overlay {
+    padding-right: 5%;
+    padding-bottom: 60%;
+  }
+  .book-buy-now-btn{
+    font-size: 9px;
+  }
+}
+
 /* Loader Styles */
 .book-loader {
   color: #fff;
