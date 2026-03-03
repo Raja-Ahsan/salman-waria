@@ -1,13 +1,15 @@
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { assets } from '../lib/assets';
 
+/** pathForPage = route where this link "lives"; when user is on that page, clicking this link keeps them there (like Header) */
 const NAV_LINKS = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Book', href: '#book' },
-  { label: 'Blog', href: '#blog' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', path: '/', hash: 'home', pathForPage: '/' },
+  { label: 'About', path: '/', hash: 'about', pathForPage: '/about' },
+  { label: 'Book', path: '/', hash: 'book', pathForPage: '/bookdetails' },
+  { label: 'Blog', path: '/', hash: 'blog', pathForPage: '/blogsdetails' },
+  { label: 'Contact', path: '/', hash: 'contact', pathForPage: null },
 ];
 
 const SOCIAL_LINKS = [
@@ -19,6 +21,8 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
   const [email, setEmail] = useState('');
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +39,7 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <a href="#home" className="footer__logo">
+            <Link to="/" className="footer__logo">
               <img
                 src={assets.logo}
                 alt=""
@@ -46,16 +50,29 @@ export function Footer() {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
-            </a>
+            </Link>
             <nav className="footer__nav" aria-label="Footer navigation">
               <ul className="footer__nav-list">
-                {NAV_LINKS.map((link) => (
-                  <li key={link.href}>
-                    <a href={link.href} className="footer__nav-link">
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {NAV_LINKS.map((link) => {
+                  const isCurrentPage = link.pathForPage != null && location.pathname === link.pathForPage;
+                  return (
+                    <li key={link.hash}>
+                      {isHome ? (
+                        <a href={`#${link.hash}`} className="footer__nav-link">
+                          {link.label}
+                        </a>
+                      ) : isCurrentPage ? (
+                        <span className="footer__nav-link footer__nav-link--current" aria-current="page">
+                          {link.label}
+                        </span>
+                      ) : (
+                        <Link to={`${link.path}#${link.hash}`} className="footer__nav-link">
+                          {link.label}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           </motion.div>

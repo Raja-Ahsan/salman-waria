@@ -6,19 +6,25 @@ const VENTURES = [
   {
     title: 'AMERICAN DIGITAL AGENCY',
     description: 'Helping Businesses Grow By Connecting Brands With Audiences in Meaningful Ways',
+    link: '/digitalamericanagency',
+
+
     
   },
   {
     title: 'LOGIC WORK',
     description: 'Blending Technology And Storytelling To Drive Digital Success.',
+    link: '/logicworks',
   },
   {
     title: 'LOGIC WORKS (DUBAI)',
     description: 'Digital Innovation Hub Pushing The Boundaries In The Heart Of The Tech World.',
+    link: '/logicworksdubai',
   },
   {
     title: 'LOGIC MEDIA HOUSE',
     description: 'Revolutionizing Filmmaking With Modern Tech And Compelling Narratives.',
+    link: '/logicmediahouse', 
   },
 ];
 
@@ -61,7 +67,7 @@ export function Ventures() {
             >
               {VENTURES.map((v) => (
                 <motion.li key={v.title} variants={cardItem}>
-                  <a href="#contact" className="ventures__card">
+                  <a href={v.link} className="ventures__card">
                     <span className="ventures__card-icon" aria-hidden="true">
                       {!iconError ? (
                         <img

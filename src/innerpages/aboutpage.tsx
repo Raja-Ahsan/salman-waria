@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+
 import { assets } from '../lib/assets'
 
 const container = {
@@ -62,11 +62,11 @@ function AboutPage() {
                   Over the years, I have founded and led multiple digital ventures across different regions,
                   helping brands grow through innovation, creativity, and smart digital solutions.
                 </motion.p>
-                <motion.div variants={item}>
+                {/* <motion.div variants={item}>
                   <Link to="/#ventures" className="inner-page__btn inner-page__btn--primary">
                     Explore Ventures
                   </Link>
-                </motion.div>
+                </motion.div> */}
               </motion.div>
 
               <motion.div

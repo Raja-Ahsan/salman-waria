@@ -6,12 +6,12 @@ const POSTS = [
   { title: 'DIGITAL TRANSFORMATION TIPS', image: assets.blog[0] },
   { title: 'AI BUSINESS ADOPTION STRATEGIES', image: assets.blog[1] },
   { title: 'GROWTH MARKETING THAT DELIVERS ROI', image: assets.blog[2] },
-  { title: 'THE FUTURE OF REMOTE WORK IN TECH', image: assets.blog[0] },
-  { title: 'BLOCKCHAIN FOR BUSINESS INNOVATION', image: assets.blog[1] },
-  { title: 'BUILDING SCALABLE STARTUPS IN 2025', image: assets.blog[2] },
-  { title: 'SUSTAINABLE TECH SOLUTIONS FOR ENTERPRISES', image: assets.blog[0] },
-  { title: 'DATA DRIVEN DECISION MAKING', image: assets.blog[1] },
-  { title: 'INNOVATION AND CREATIVITY IN DIGITAL AGE', image: assets.blog[2] },
+  { title: 'THE FUTURE OF REMOTE WORK IN TECH', image: 'https://images.unsplash.com/photo-1662638600479-793f67d3b9f9?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  { title: 'BLOCKCHAIN FOR BUSINESS INNOVATION', image: 'https://images.unsplash.com/photo-1631864031824-d636e1dc5292?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
+  { title: 'BUILDING SCALABLE STARTUPS IN 2025', image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
+  { title: 'SUSTAINABLE TECH SOLUTIONS FOR ENTERPRISES', image: 'https://www.serverconsultancy.co.uk/wp-content/uploads/2023/12/Environmental-Responsibility-in-sustainable-IT-solutions-for-SMEs-1.jpg'  },
+  { title: 'DATA DRIVEN DECISION MAKING', image: 'https://plus.unsplash.com/premium_photo-1682126255537-d3d08524f263?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  { title: 'INNOVATION AND CREATIVITY IN DIGITAL AGE', image: 'https://i0.wp.com/andrewggibson.com/wp-content/uploads/2023/12/DALL%C2%B7E-2023-12-27-08.45.07-A-stunning-and-visually-captivating-digital-collage-in-a-16_9-aspect-ratio-symbolizing-the-fusion-of-technology-and-creativity.-Feature-a-realistic-h-jpg.webp?fit=1792%2C1024&ssl=1'   },
 ]
 
 const container = {

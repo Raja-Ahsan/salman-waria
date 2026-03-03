@@ -19,7 +19,13 @@ import { Layout } from './components/Layout'
 import AboutPage from './innerpages/aboutpage'
 import BlogsDetails from './innerpages/blogsdetails'
 import BookDetails from './innerpages/bookdetails'
+import DigitalAmericanAgency from './ventures/digital-american-agency'
+import LogicWorks from './ventures/logic-works'
+import LogicWorksDubai from './ventures/logic-works-dubai'
+import LogicMediaHouse from './ventures/logic-media-house'
 import './App.css'
+import ContactPage from './innerpages/contact'
+
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -35,7 +41,9 @@ function HomePage() {
   const [mousePos, setMousePos] = useState({ x: -999, y: -999 });
 
   useEffect(() => {
-    if (location.hash === '#about') {
+    if (location.hash === '#home' || location.hash === '') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (location.hash === '#about') {
       const el = document.getElementById('about');
       el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else if (location.hash === '#book') {
@@ -44,6 +52,9 @@ function HomePage() {
     }
     else if (location.hash === '#blog') {
       const el = document.getElementById('blog');
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (location.hash === '#contact') {
+      const el = document.getElementById('contact');
       el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [location.pathname, location.hash]);
@@ -115,7 +126,13 @@ function App() {
       <Route element={<Layout />}>
         <Route path="about" element={<AboutPage />} />
         <Route path="blogsdetails" element={<BlogsDetails />} />
-        <Route path="bookdetails" element={<BookDetails />} />
+          <Route path="bookdetails" element={<BookDetails />} />
+          <Route path="digitalamericanagency" element={<DigitalAmericanAgency />} />
+          <Route path="logicworks" element={<LogicWorks />} />
+          <Route path="logicworksdubai" element={<LogicWorksDubai />} />
+          <Route path="logicmediahouse" element={<LogicMediaHouse />} />
+        
+          <Route path="contactpage" element={<ContactPage />} />
       </Route>
     </Routes>
     </>

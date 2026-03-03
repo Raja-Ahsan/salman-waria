@@ -20,7 +20,7 @@ export function LatestPress() {
             Logic Works And Yourself.
           </p>
           <motion.a
-            href="#blog"
+            href="/about"
             className="press__link"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
