@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { assets } from '../lib/assets'
 
 const POSTS = [
-  { title: 'DIGITAL TRANSFORMATION TIPS', image: assets.blog[0] },
+  { title: 'DIGITAL TRANSFORMATION TIPS', image: assets.blog[0], link: '/digitaltransformationtips' },
   { title: 'AI BUSINESS ADOPTION STRATEGIES', image: assets.blog[1] },
   { title: 'GROWTH MARKETING THAT DELIVERS ROI', image: assets.blog[2] },
   { title: 'THE FUTURE OF REMOTE WORK IN TECH', image: 'https://images.unsplash.com/photo-1662638600479-793f67d3b9f9?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
@@ -67,7 +67,7 @@ function BlogsDetails() {
               {POSTS.map((post) => (
                 <motion.li key={post.title} variants={item}>
                   <article className="inner-page__blog-card">
-                    <Link to="#" className="inner-page__blog-card-link">
+                    <Link to={post.link || ''} className="inner-page__blog-card-link">
                       <div className="inner-page__blog-card-img">
                         <img
                           src={post.image}

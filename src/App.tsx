@@ -25,6 +25,7 @@ import LogicWorksDubai from './ventures/logic-works-dubai'
 import LogicMediaHouse from './ventures/logic-media-house'
 import './App.css'
 import ContactPage from './innerpages/contact'
+import DigitalTransformationTips from './blogs/digital-transformation-tips'
 
 
 function ScrollToTop() {
@@ -133,6 +134,8 @@ function App() {
           <Route path="logicmediahouse" element={<LogicMediaHouse />} />
         
           <Route path="contactpage" element={<ContactPage />} />
+          {/* Blogs Routes */}
+          <Route path="digitaltransformationtips" element={<DigitalTransformationTips />} />
       </Route>
     </Routes>
     </>

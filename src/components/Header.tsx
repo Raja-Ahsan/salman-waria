@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: 'About', href: '#about', to: '/#about' },
   { label: 'Book', href: '#book', to: '/#book' },
   { label: 'Blog', href: '#blog', to: '/#blog' },
+  
 ];
 
 const PAGE_TO_HASH: Record<string, string> = {
@@ -20,7 +21,18 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
-  const handleNavClick = (link: (typeof NAV_LINKS)[0], e: React.MouseEvent) => {
+  const handleContactClick = (fromMobileMenu = false) => {
+    setMenuOpen(false);
+    if (location.pathname !== '/') return;
+    const doScroll = () => {
+      const el = document.getElementById('contact');
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    if (fromMobileMenu) setTimeout(doScroll, 350);
+    else doScroll();
+  };
+
+  const handleNavClick = (link: (typeof NAV_LINKS)[0], e: React.MouseEvent, fromMobileMenu = false) => {
     setMenuOpen(false);
     const currentHash = PAGE_TO_HASH[location.pathname];
     const isSamePage = link.href === currentHash;
@@ -30,8 +42,15 @@ export function Header() {
     }
     const hash = link.href?.startsWith('#') ? link.href.slice(1) : null;
     if (hash && location.pathname === '/') {
-      const el = document.getElementById(hash);
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const doScroll = () => {
+        const el = document.getElementById(hash);
+        el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+      if (fromMobileMenu) {
+        setTimeout(doScroll, 350);
+      } else {
+        doScroll();
+      }
     }
   };
 
@@ -73,9 +92,13 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <a href="#contact" className="header__cta header__cta--outline" onClick={() => setMenuOpen(false)}>
+          <Link
+            to={location.pathname === '/' ? '/#contact' : '/contactpage'}
+            className="header__cta header__cta--outline"
+            onClick={() => handleContactClick(false)}
+          >
             Contact With Me
-          </a>
+          </Link>
         </nav>
 
         <motion.button
@@ -112,16 +135,20 @@ export function Header() {
                   >
                     <Link
                       to={link.to}
-                      onClick={(e) => handleNavClick(link, e)}
+                      onClick={(e) => handleNavClick(link, e, true)}
                     >
                       {link.label}
                     </Link>
                   </motion.li>
                 ))}
               </ul>
-              <a href="#contact" className="header__mobile-cta header__mobile-cta--outline" onClick={() => setMenuOpen(false)}>
+              <Link
+                to={location.pathname === '/' ? '/#contact' : '/contactpage'}
+                className="header__mobile-cta header__mobile-cta--outline"
+                onClick={() => handleContactClick(true)}
+              >
                 Contact With Me
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}

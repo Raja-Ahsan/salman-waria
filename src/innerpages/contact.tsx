@@ -105,11 +105,11 @@ function ContactPage() {
                     />
                   </label>
                   <label className="contact-page__label">
-                    <span className="sr-only">Subject</span>
+                    <span className="sr-only">Project</span>
                     <input
                       type="text"
-                      name="subject"
-                      placeholder="Subject"
+                      name="project"
+                      placeholder="Project"
                       className="contact-page__input"
                       disabled={status === 'sending'}
                     />
