@@ -4,7 +4,6 @@ import { assets } from '../lib/assets';
 
 const POSTS = [
   { title: 'DIGITAL TRANSFORMATION TIPS', image: assets.blog[0],
-    link: '/digitaltransformationtips'
   },
   { title: 'AI BUSINESS ADOPTION STRATEGIES', image: assets.blog[1] },
   { title: 'GROWTH MARKETING THAT DELIVERS ROI', image: assets.blog[2] },
@@ -34,7 +33,7 @@ export function Blog() {
               transition={{ delay: 0.08 * i }}
             >
               <article className="blog__card">
-                <a href={post.link}>
+                <a href="#">
                   <div className="blog__card-img-wrap">
                     <img
                       src={post.image}
