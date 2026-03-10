@@ -1,22 +1,43 @@
 import { motion } from 'framer-motion';
+import AiiEstate from '../assets/images/ai-estate.png';
+import Freedom from '../assets/images/freedom.png';
+import GreatAmerican from '../assets/images/great-american.png';
+
 
 const BRANDS = [
   {
-    name: 'AMERICAN DIGITAL AGENCY LLC',
-    tagline: 'WHERE AMERICAN DREAMS COME TRUE',
+
+    image: AiiEstate,
+    link: '#',
   },
   {
-    name: 'ELITE PRO',
-    tagline: 'WEBSITE',
+ 
+    image: Freedom,
+    link: 'http://build-freedom.ai/',
   },
   {
-    name: 'LWS',
-    tagline: 'LIBERTY WEBSTUDIO',
+   
+    image: GreatAmerican,
+    link: 'https://greatamerican.ai/',
   },
   {
-    name: 'LogicWorks',
-    tagline: null,
+
+    image: AiiEstate,
+    link: '#',
   },
+  {
+ 
+    image: Freedom,
+    link: 'http://build-freedom.ai/',
+  },
+  {
+   
+    image: GreatAmerican,
+    link: 'https://greatamerican.ai/',
+  },
+ 
+ 
+ 
 ];
 
 export function Brands() {
@@ -37,11 +58,21 @@ export function Brands() {
       <div className="brands__slider-wrap">
         <div className="brands__slider">
           {[...BRANDS, ...BRANDS].map((brand, i) => (
-            <div key={`${brand.name}-${i}`} className="brands__item">
-              <span className="brands__item-name">{brand.name}</span>
-              {brand.tagline != null && brand.tagline !== '' && (
-                <span className="brands__item-tagline">{brand.tagline}</span>
-              )}
+            <div key={`${brand.image}-${i}`} className="brands__item">
+              <a
+                href={brand.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="brands__item-link"
+                aria-label={`Brand ${i + 1}`}
+              >
+                <img
+                  src={brand.image}
+                  alt="{}"
+                  className="brands__item-img"
+                  loading="lazy"
+                />
+              </a>
             </div>
           ))}
         </div>

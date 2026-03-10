@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { assets } from '../lib/assets';
 
@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { label: 'About', to: '/about' },
   { label: 'Book', to: '/bookdetails' },
   { label: 'Blog', to: '/blogsdetails' },
-  { label: 'Contact', to: '/contactpage' },
+  { label: 'Contact', to: '/#contact' },
 ];
 
 const SOCIAL_LINKS = [
@@ -18,6 +18,15 @@ const SOCIAL_LINKS = [
 ];
 
 export function Footer() {
+  const location = useLocation();
+
+  const handleContactClick = (e: React.MouseEvent) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <footer className="footer" role="contentinfo">
       <div className="container footer__inner">
@@ -44,7 +53,11 @@ export function Footer() {
               <ul className="footer__nav-list">
                 {NAV_LINKS.map((link) => (
                   <li key={link.to}>
-                    <Link to={link.to} className="footer__nav-link">
+                    <Link
+                      to={link.to}
+                      className="footer__nav-link"
+                      onClick={link.to === '/#contact' ? handleContactClick : undefined}
+                    >
                       {link.label}
                     </Link>
                   </li>

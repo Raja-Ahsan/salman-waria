@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { assets } from '../lib/assets';
 
@@ -12,6 +12,14 @@ const NAV_LINKS = [
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const handleContactClick = (fromMobile = false) => {
+    if (fromMobile) setMenuOpen(false);
+    if (location.pathname === '/') {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <motion.header
@@ -47,7 +55,16 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <Link to="/contactpage" className="header__cta header__cta--outline">
+          <Link
+            to="/#contact"
+            className="header__cta header__cta--outline"
+            onClick={(e) => {
+              if (location.pathname === '/') {
+                e.preventDefault();
+                handleContactClick(false);
+              }
+            }}
+          >
             Contact With Me
           </Link>
         </nav>
@@ -91,9 +108,16 @@ export function Header() {
                 ))}
               </ul>
               <Link
-                to="/contactpage"
+                to="/#contact"
                 className="header__mobile-cta header__mobile-cta--outline"
-                onClick={() => setMenuOpen(false)}
+                onClick={(e) => {
+                  if (location.pathname === '/') {
+                    e.preventDefault();
+                    handleContactClick(true);
+                  } else {
+                    setMenuOpen(false);
+                  }
+                }}
               >
                 Contact With Me
               </Link>
