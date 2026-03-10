@@ -1,15 +1,13 @@
 import { useState, useCallback, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { useVantaFog } from './hooks/useVantaFog'
 import { assets } from './lib/assets'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
-// import { About } from './components/About'
 import { Ventures } from './components/Ventures'
 import { WhatIDo } from './components/WhatIDo'
 import { World2050 } from './components/World2050'
 import { LatestPress } from './components/LatestPress'
-import { Testimonials } from './components/Testimonials'
+// import { Testimonials } from './components/Testimonials'
 import { Contact } from './components/Contact'
 import { Blog } from './components/Blog'
 import { Brands } from './components/Brands'
@@ -37,40 +35,21 @@ function ScrollToTop() {
 }
 
 function HomePage() {
-  const vantaRef = useVantaFog();
-  const location = useLocation();
-  const [mousePos, setMousePos] = useState({ x: -999, y: -999 });
-
-  useEffect(() => {
-    if (location.hash === '#home' || location.hash === '') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (location.hash === '#about') {
-      const el = document.getElementById('about');
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (location.hash === '#book') {
-      const el = document.getElementById('book');
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    else if (location.hash === '#blog') {
-      const el = document.getElementById('blog');
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (location.hash === '#contact') {
-      const el = document.getElementById('contact');
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [location.pathname, location.hash]);
+  const [mousePos, setMousePos] = useState(() =>
+    typeof window !== 'undefined'
+      ? { x: window.innerWidth / 2, y: window.innerHeight / 2 }
+      : { x: 0, y: 0 }
+  )
 
   const handleBannerMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  }, []);
+    const rect = e.currentTarget.getBoundingClientRect()
+    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+  }, [])
 
-  const handleBannerMouseLeave = useCallback(() => {
-    setMousePos({ x: -999, y: -999 });
-  }, []);
+  const handleBannerMouseLeave = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    setMousePos({ x: rect.width / 2, y: rect.height / 2 })
+  }, [])
 
   return (
     <>
@@ -88,14 +67,10 @@ function HomePage() {
           aria-hidden="true"
         />
         <div
-          ref={vantaRef}
-          className="banner-section__vanta"
+          className="banner-section__circle"
           aria-hidden="true"
           style={
-            {
-              '--mouse-x': `${mousePos.x}px`,
-              '--mouse-y': `${mousePos.y}px`,
-            } as React.CSSProperties
+            { '--mouse-x': `${mousePos.x}px`, '--mouse-y': `${mousePos.y}px` } as React.CSSProperties
           }
         />
         <div className="banner-section__overlay" aria-hidden="true" />
@@ -109,7 +84,7 @@ function HomePage() {
         <WhatIDo />
         <World2050 />
         <LatestPress />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <Contact />
         <Blog />
       </main>

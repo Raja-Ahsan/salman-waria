@@ -1,58 +1,17 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { assets } from '../lib/assets';
 
 const NAV_LINKS = [
-  { label: 'Home', href: '/', to: '/' },
-  { label: 'About', href: '#about', to: '/#about' },
-  { label: 'Book', href: '#book', to: '/#book' },
-  { label: 'Blog', href: '#blog', to: '/#blog' },
-  
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/about' },
+  { label: 'Book', to: '/bookdetails' },
+  { label: 'Blog', to: '/blogsdetails' },
 ];
-
-const PAGE_TO_HASH: Record<string, string> = {
-  '/about': '#about',
-  '/bookdetails': '#book',
-  '/blogsdetails': '#blog',
-};
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
-
-  const handleContactClick = (fromMobileMenu = false) => {
-    setMenuOpen(false);
-    if (location.pathname !== '/') return;
-    const doScroll = () => {
-      const el = document.getElementById('contact');
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-    if (fromMobileMenu) setTimeout(doScroll, 350);
-    else doScroll();
-  };
-
-  const handleNavClick = (link: (typeof NAV_LINKS)[0], e: React.MouseEvent, fromMobileMenu = false) => {
-    setMenuOpen(false);
-    const currentHash = PAGE_TO_HASH[location.pathname];
-    const isSamePage = link.href === currentHash;
-    if (isSamePage) {
-      e.preventDefault();
-      return;
-    }
-    const hash = link.href?.startsWith('#') ? link.href.slice(1) : null;
-    if (hash && location.pathname === '/') {
-      const doScroll = () => {
-        const el = document.getElementById(hash);
-        el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      };
-      if (fromMobileMenu) {
-        setTimeout(doScroll, 350);
-      } else {
-        doScroll();
-      }
-    }
-  };
 
   return (
     <motion.header
@@ -75,28 +34,20 @@ export function Header() {
         <nav className="header__nav" aria-label="Main navigation">
           <ul className="header__nav-list">
             {NAV_LINKS.map((link, i) => (
-              <li key={link.to ?? link.href}>
+              <li key={link.to}>
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 * i, duration: 0.4 }}
                 >
-                  <Link
-                    to={link.to}
-                    className="header__nav-link"
-                    onClick={(e) => handleNavClick(link, e)}
-                  >
+                  <Link to={link.to} className="header__nav-link">
                     {link.label}
                   </Link>
                 </motion.div>
               </li>
             ))}
           </ul>
-          <Link
-            to={location.pathname === '/' ? '/#contact' : '/contactpage'}
-            className="header__cta header__cta--outline"
-            onClick={() => handleContactClick(false)}
-          >
+          <Link to="/contactpage" className="header__cta header__cta--outline">
             Contact With Me
           </Link>
         </nav>
@@ -128,24 +79,21 @@ export function Header() {
               <ul className="header__mobile-list">
                 {NAV_LINKS.map((link, i) => (
                   <motion.li
-                    key={link.to ?? link.href}
+                    key={link.to}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.03 * i }}
                   >
-                    <Link
-                      to={link.to}
-                      onClick={(e) => handleNavClick(link, e, true)}
-                    >
+                    <Link to={link.to} onClick={() => setMenuOpen(false)}>
                       {link.label}
                     </Link>
                   </motion.li>
                 ))}
               </ul>
               <Link
-                to={location.pathname === '/' ? '/#contact' : '/contactpage'}
+                to="/contactpage"
                 className="header__mobile-cta header__mobile-cta--outline"
-                onClick={() => handleContactClick(true)}
+                onClick={() => setMenuOpen(false)}
               >
                 Contact With Me
               </Link>

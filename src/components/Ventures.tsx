@@ -12,7 +12,7 @@ const VENTURES = [
     
   },
   {
-    title: 'LOGIC WORK',
+    title: 'LOGIC WORKS',
     description: 'Blending Technology And Storytelling To Drive Digital Success.',
     link: '/logicworks',
   },
@@ -56,7 +56,7 @@ export function Ventures() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              VENTURES
+          Entities
             </motion.h2>
             <motion.ul
               className="ventures__list"
