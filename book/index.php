@@ -1,5 +1,5 @@
 <?php
-$sw_base = "/salman-waria-php/assests";
+$sw_base = "https://salmanwaria.com/assests";
 $sw_page_title = 'World in 2050 — The Book | Salman Waria';
 $sw_page_description = 'World in 2050: Salman Waria’s Amazon #1 futurist book on nanotechnology, AI, and the technologies reshaping civilization — a blueprint, not speculation.';
 $sw_amazon_book = 'https://www.amazon.com/World-2050-Salman-Waria-ebook/dp/B0GFY23QP2/';

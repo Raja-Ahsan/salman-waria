@@ -1,6 +1,6 @@
 <?php
 include './includes/sw-session.php';
-$sw_base = "/salman-waria-php/assests";
+$sw_base = "https://salmanwaria.com/assests";
 
 $sw_is_home = true;
 $sw_scroll_to_id = null;

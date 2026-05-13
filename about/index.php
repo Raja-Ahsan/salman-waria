@@ -1,5 +1,5 @@
 <?php
-$sw_base = "/salman-waria-php/assests";
+$sw_base = "https://salmanwaria.com/assests";
 $sw_page_title = 'About — Salman Waria | Tech Visionary & Author';
 $sw_page_description = 'Meet Salman Waria — serial entrepreneur, AI architect, bestselling author of World in 2050, and founder behind Freedom.AI, Waria Bot, and ventures across the USA and UAE.';
 include '../includes/head.php';

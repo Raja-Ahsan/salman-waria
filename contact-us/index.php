@@ -1,6 +1,6 @@
 <?php
 include '../includes/sw-session.php';
-$sw_base = "/salman-waria-php/assests";
+$sw_base = "https://salmanwaria.com/assests";
 $sw_page_title = 'Contact — Salman Waria';
 $sw_page_description = 'Get in touch with Salman Waria for partnerships, speaking, media, and AI ventures — Silicon Valley & Dubai.';
 include '../includes/head.php';
