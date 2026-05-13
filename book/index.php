@@ -1,10 +1,10 @@
 <?php
-$sw_base = 'assests';
+$sw_base = "/salman-waria-php/assests";
 $sw_page_title = 'World in 2050 — The Book | Salman Waria';
 $sw_page_description = 'World in 2050: Salman Waria’s Amazon #1 futurist book on nanotechnology, AI, and the technologies reshaping civilization — a blueprint, not speculation.';
 $sw_amazon_book = 'https://www.amazon.com/World-2050-Salman-Waria-ebook/dp/B0GFY23QP2/';
-require __DIR__ . '/includes/head.php';
-require __DIR__ . '/includes/header.php';
+include '../includes/head.php';
+include '../includes/header.php';
 ?>
 
       <!-- ── PAGE HERO ─────────────────────────────────────── -->
@@ -307,4 +307,4 @@ The world in 2050 is not a prediction. It is a map, written by someone who has s
       </script>
 
 <?php
-require __DIR__ . '/includes/footer.php';
+include '../includes/footer.php';

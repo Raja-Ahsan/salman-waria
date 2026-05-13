@@ -1,6 +1,6 @@
 <?php
-require __DIR__ . '/includes/sw-session.php';
-$sw_base = 'assests';
+include './includes/sw-session.php';
+$sw_base = "/salman-waria-php/assests";
 
 $sw_is_home = true;
 $sw_scroll_to_id = null;
@@ -12,8 +12,8 @@ if (!empty($_GET['sw_section']) && is_string($_GET['sw_section'])) {
   }
 }
 
-require __DIR__ . '/includes/head.php';
-require __DIR__ . '/includes/header.php';
+include './includes/head.php';
+include './includes/header.php';
 ?>
 
       <!-- ── HERO ──────────────────────────────────────────── -->
@@ -718,4 +718,5 @@ require __DIR__ . '/includes/header.php';
       </section>
 
 <?php
-require __DIR__ . '/includes/footer.php';
+include './includes/footer.php';
+?>

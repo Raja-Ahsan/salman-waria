@@ -384,7 +384,7 @@
         btn.style.opacity = '0.7';
 
         try {
-          const submitUrl = <?php echo json_encode(sw_href('contact-submit.php'), JSON_UNESCAPED_SLASHES); ?>;
+          const submitUrl = "<?= $base ?>contact-submit.php";
           const res = await fetch(submitUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -473,7 +473,7 @@
       btn.style.opacity = '0.8';
 
       try {
-        const submitUrl = <?php echo json_encode(sw_href('newsletter-submit.php'), JSON_UNESCAPED_SLASHES); ?>;
+        const submitUrl = "<?= $base ?>newsletter-submit.php";
         const res = await fetch(submitUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },

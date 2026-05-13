@@ -1,5 +1,5 @@
 ﻿<?php
-$base = "https://salmanwaria.com/";
+$base = "/salman-waria-php/";
 ?>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>

@@ -1,10 +1,10 @@
 <?php
-require __DIR__ . '/includes/sw-session.php';
-$sw_base = 'assests';
+include '../includes/sw-session.php';
+$sw_base = "/salman-waria-php/assests";
 $sw_page_title = 'Contact — Salman Waria';
 $sw_page_description = 'Get in touch with Salman Waria for partnerships, speaking, media, and AI ventures — Silicon Valley & Dubai.';
-require __DIR__ . '/includes/head.php';
-require __DIR__ . '/includes/header.php';
+include '../includes/head.php';
+include '../includes/header.php';
 ?>
 
       <!-- ── PAGE HERO ─────────────────────────────────────── -->
@@ -114,4 +114,4 @@ require __DIR__ . '/includes/header.php';
       </section>
 
 <?php
-require __DIR__ . '/includes/footer.php';
+include '../includes/footer.php';
