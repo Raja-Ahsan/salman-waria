@@ -1,9 +1,9 @@
 <?php
-$sw_base = 'assests';
+$sw_base = "https://salmanwaria.com/assests";
 $sw_page_title = 'About — Salman Waria | Tech Visionary & Author';
 $sw_page_description = 'Meet Salman Waria — serial entrepreneur, AI architect, bestselling author of World in 2050, and founder behind Freedom.AI, Waria Bot, and ventures across the USA and UAE.';
-require __DIR__ . '/includes/head.php';
-require __DIR__ . '/includes/header.php';
+include '../includes/head.php';
+include '../includes/header.php';
 ?>
 
       <!-- ── PAGE HERO ─────────────────────────────────────── -->
@@ -188,4 +188,4 @@ require __DIR__ . '/includes/header.php';
       </section> -->
 
 <?php
-require __DIR__ . '/includes/footer.php';
+include '../includes/footer.php';

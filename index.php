@@ -47,7 +47,7 @@ require __DIR__ . '/includes/header.php';
             </div>
 
             <div class="hero-ctas" id="hero-ctas">
-              <a href="<?php echo htmlspecialchars(sw_href('contact'), ENT_QUOTES, 'UTF-8'); ?>" class="btn-primary">Work With Me to Build Something Innovative</a>
+              <a href="<?= $base ?>contact-us" class="btn-primary">Work With Me to Build Something Innovative</a>
               <!-- <a href="#book" class="btn-secondary">Read the Book</a> -->
             </div>
 
