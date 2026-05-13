@@ -1,0 +1,37 @@
+# MultiViews extension guess kar sakta hai — clean URLs ke sath conflict
+Options -MultiViews
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Agar site URL mein folder hai, jaise:
+  # http://localhost/salman-waria/salman-waria-php/
+  # to neeche wali line uncomment karke path apne folder jaisa set karein:
+  # RewriteBase /salman-waria/salman-waria-php/
+
+  DirectoryIndex index.php
+
+  # POST handlers: redirect mat lagao (POST body redirect par kho sakti hai)
+  RewriteRule ^(contact-submit|newsletter-submit)\.php$ - [L]
+
+  # Sirf asli client request par visible redirect (internal rewrite loop se bachao)
+  RewriteCond %{ENV:REDIRECT_STATUS} ^$
+
+  # index.php -> folder root (slug mein index.php na dikhe)
+  RewriteCond %{REQUEST_METHOD} !POST
+  RewriteCond %{REQUEST_URI} ^(.*/)index\.php$ [NC]
+  RewriteRule ^index\.php$ %1 [R=301,L]
+
+  # Baqi .php URLs -> bina extension (GET/HEAD)
+  RewriteCond %{ENV:REDIRECT_STATUS} ^$
+  RewriteCond %{REQUEST_METHOD} !POST
+  RewriteCond %{REQUEST_URI} \.php$ [NC]
+  RewriteCond %{REQUEST_URI} !/(contact-submit|newsletter-submit)\.php$ [NC]
+  RewriteRule ^(.+)\.php$ $1 [R=301,L,QSA]
+
+  # /about -> internally about.php (agar file maujood ho)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.php -f
+  RewriteRule ^(.*)$ $1.php [L]
+</IfModule>

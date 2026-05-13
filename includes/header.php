@@ -45,15 +45,15 @@
 
     <!-- ── NAVIGATION ─────────────────────────────────────── -->
     <nav id="navbar" role="navigation" aria-label="Main navigation">
-      <a href="index.php#hero" class="nav-logo" aria-label="Salman Waria home">Salman <span>Waria</span></a>
+      <a href="/" class="nav-logo" aria-label="Salman Waria home">Salman <span>Waria</span></a>
       <ul class="nav-links">
       <li><a href="index.php">Home</a></li>
-        <li><a href="about.php">About</a></li>
+        <li><a href="about">About</a></li>
         <li><a href="index.php#companies">Empire</a></li>
         <li><a href="book.php">Book</a></li>
         <li><a href="index.php#ai-products">AI Ventures</a></li>
         <li><a href="index.php#impact">Impact</a></li>
-        <li><a href="contact-us.php">Contact</a></li>
+        <li><a href="contact-us">Contact</a></li>
       </ul>
       <a href="contact-us.php" class="nav-cta">Connect</a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
@@ -64,13 +64,13 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
       <button class="close-btn" id="close-menu" aria-label="Close navigation">✕</button>
-      <a href="index.php" onclick="closeMobileMenu()">Home</a>
-      <a href="about.php" onclick="closeMobileMenu()">About</a>
+      <a href="/" onclick="closeMobileMenu()">Home</a>
+      <a href="about" onclick="closeMobileMenu()">About</a>
       <a href="index.php#companies" onclick="closeMobileMenu()">Empire</a>
       <a href="book.php" onclick="closeMobileMenu()">Book</a>
       <a href="index.php#ai-products" onclick="closeMobileMenu()">AI Ventures</a>
       <a href="index.php#impact" onclick="closeMobileMenu()">Impact</a>
-      <a href="contact-us.php" onclick="closeMobileMenu()">Contact</a>
+      <a href="contact-us" onclick="closeMobileMenu()">Contact</a>
     </div>
 
     <main id="main-content">
