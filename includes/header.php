@@ -45,17 +45,17 @@
 
     <!-- ── NAVIGATION ─────────────────────────────────────── -->
     <nav id="navbar" role="navigation" aria-label="Main navigation">
-      <a href="./" class="nav-logo" aria-label="Salman Waria home">Salman <span>Waria</span></a>
+      <a href="<?php echo htmlspecialchars(sw_href(''), ENT_QUOTES, 'UTF-8'); ?>" class="nav-logo" aria-label="Salman Waria home">Salman <span>Waria</span></a>
       <ul class="nav-links">
-      <li><a href="./">Home</a></li>
-        <li><a href="about">About</a></li>
-        <li><a href="companies">Empire</a></li>
-        <li><a href="book">Book</a></li>
-        <li><a href="ai-products">AI Ventures</a></li>
-        <li><a href="impact">Impact</a></li>
-        <li><a href="contact-us">Contact</a></li>
+      <li><a href="<?php echo htmlspecialchars(sw_href(''), ENT_QUOTES, 'UTF-8'); ?>">Home</a></li>
+        <li><a href="<?php echo htmlspecialchars(sw_href('about'), ENT_QUOTES, 'UTF-8'); ?>">About</a></li>
+        <li><a href="<?php echo htmlspecialchars(sw_href('companies'), ENT_QUOTES, 'UTF-8'); ?>">Empire</a></li>
+        <li><a href="<?php echo htmlspecialchars(sw_href('book'), ENT_QUOTES, 'UTF-8'); ?>">Book</a></li>
+        <li><a href="<?php echo htmlspecialchars(sw_href('ai-products'), ENT_QUOTES, 'UTF-8'); ?>">AI Ventures</a></li>
+        <li><a href="<?php echo htmlspecialchars(sw_href('impact'), ENT_QUOTES, 'UTF-8'); ?>">Impact</a></li>
+        <li><a href="<?php echo htmlspecialchars(sw_href('contact-us'), ENT_QUOTES, 'UTF-8'); ?>">Contact</a></li>
       </ul>
-      <a href="contact-us" class="nav-cta">Connect</a>
+      <a href="<?php echo htmlspecialchars(sw_href('contact-us'), ENT_QUOTES, 'UTF-8'); ?>" class="nav-cta">Connect</a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -64,13 +64,13 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
       <button class="close-btn" id="close-menu" aria-label="Close navigation">✕</button>
-      <a href="./" onclick="closeMobileMenu()">Home</a>
-      <a href="about" onclick="closeMobileMenu()">About</a>
-      <a href="companies" onclick="closeMobileMenu()">Empire</a>
-      <a href="book" onclick="closeMobileMenu()">Book</a>
-      <a href="ai-products" onclick="closeMobileMenu()">AI Ventures</a>
-      <a href="impact" onclick="closeMobileMenu()">Impact</a>
-      <a href="contact-us" onclick="closeMobileMenu()">Contact</a>
+      <a href="<?php echo htmlspecialchars(sw_href(''), ENT_QUOTES, 'UTF-8'); ?>" onclick="closeMobileMenu()">Home</a>
+      <a href="<?php echo htmlspecialchars(sw_href('about'), ENT_QUOTES, 'UTF-8'); ?>" onclick="closeMobileMenu()">About</a>
+      <a href="<?php echo htmlspecialchars(sw_href('companies'), ENT_QUOTES, 'UTF-8'); ?>" onclick="closeMobileMenu()">Empire</a>
+      <a href="<?php echo htmlspecialchars(sw_href('book'), ENT_QUOTES, 'UTF-8'); ?>" onclick="closeMobileMenu()">Book</a>
+      <a href="<?php echo htmlspecialchars(sw_href('ai-products'), ENT_QUOTES, 'UTF-8'); ?>" onclick="closeMobileMenu()">AI Ventures</a>
+      <a href="<?php echo htmlspecialchars(sw_href('impact'), ENT_QUOTES, 'UTF-8'); ?>" onclick="closeMobileMenu()">Impact</a>
+      <a href="<?php echo htmlspecialchars(sw_href('contact-us'), ENT_QUOTES, 'UTF-8'); ?>" onclick="closeMobileMenu()">Contact</a>
     </div>
 
     <main id="main-content">

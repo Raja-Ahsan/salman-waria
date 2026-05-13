@@ -47,7 +47,7 @@ require __DIR__ . '/includes/header.php';
             </div>
 
             <div class="hero-ctas" id="hero-ctas">
-              <a href="contact" class="btn-primary">Work With Me to Build Something Innovative</a>
+              <a href="<?php echo htmlspecialchars(sw_href('contact'), ENT_QUOTES, 'UTF-8'); ?>" class="btn-primary">Work With Me to Build Something Innovative</a>
               <!-- <a href="#book" class="btn-secondary">Read the Book</a> -->
             </div>
 
@@ -319,7 +319,7 @@ require __DIR__ . '/includes/header.php';
                   class="btn-primary"
                   aria-label="Get World in 2050 on Amazon"
                 >Get on Amazon</a>
-                <a href="book-details.php" class="btn-secondary">Read the Book</a>
+                <a href="<?php echo htmlspecialchars(sw_href('book-details'), ENT_QUOTES, 'UTF-8'); ?>" class="btn-secondary">Read the Book</a>
               </div>
             </div>
           </div>

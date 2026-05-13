@@ -99,7 +99,7 @@ None of this is science fiction. It is the documented trajectory of what is alre
                   rel="noopener noreferrer"
                   aria-label="Get World in 2050 on Amazon (opens in new tab)"
                 >Get on Amazon</a>
-                <a href="book-details.php" class="btn-secondary">Read the Book Before the World Catches Up</a>
+                <a href="<?php echo htmlspecialchars(sw_href('book-details'), ENT_QUOTES, 'UTF-8'); ?>" class="btn-secondary">Read the Book Before the World Catches Up</a>
               </div>
             </div>
           </div>
@@ -267,7 +267,7 @@ The world in 2050 is not a prediction. It is a map, written by someone who has s
               rel="noopener noreferrer"
             >Shop on Amazon</a>
          
-            <a href="contact-us.php" class="btn-secondary">Contact Us</a>
+            <a href="<?php echo htmlspecialchars(sw_href('contact-us'), ENT_QUOTES, 'UTF-8'); ?>" class="btn-secondary">Contact Us</a>
           </div>
         </div>
       </section> -->

@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/sw-url.php';
+
 if (!isset($sw_base)) {
   $sw_base = 'assests';
 }

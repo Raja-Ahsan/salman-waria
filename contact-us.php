@@ -8,18 +8,18 @@ require __DIR__ . '/includes/header.php';
 ?>
 
       <!-- ── PAGE HERO ─────────────────────────────────────── -->
-      <header class="page-hero" aria-labelledby="contact-hero-heading">
+      <section class="page-hero" aria-labelledby="contact-hero-heading">
         <div class="page-hero-bg" aria-hidden="true"></div>
         <div class="page-hero-inner reveal-up">
           <p class="section-eyebrow section-eyebrow--center">Get in touch</p>
           <h1 class="section-title page-hero-title text-center" id="contact-hero-heading">
-            Let's build<br><span class="gold-text">something remarkable</span>
+            Let's build<br><span class="gold-text">something Meaningful</span>
           </h1>
           <p class="section-sub section-sub--center page-hero-sub text-center">
             Partnerships, speaking, media, and enterprise AI — the same team reads every message.
           </p>
         </div>
-      </header>
+      </section>
 
       <!-- ── CONTACT (from home layout) ────────────────────── -->
       <section id="contact" class="contact-page-section" aria-labelledby="contact-heading">
@@ -30,7 +30,7 @@ require __DIR__ . '/includes/header.php';
               <div>
                 <div class="section-eyebrow">Get in Touch</div>
                 <h2 class="section-title" id="contact-heading">
-                  Let's Build<br><span class="gold-text">Something<br>Remarkable</span>
+                  Let's Build<br><span class="gold-text">Something<br>Meaningful</span>
                 </h2>
               </div>
               <p class="section-sub">Whether you're a founder seeking a strategic partner, a publisher interested in speaking engagements, or an enterprise exploring AI solutions — Salman's team is ready.</p>

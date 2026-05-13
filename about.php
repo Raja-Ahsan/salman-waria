@@ -169,7 +169,7 @@ require __DIR__ . '/includes/header.php';
             </article>
           </div>
           <div class="text-center" style="margin-top: 40px;">
-            <a href="contact-us.php" class="btn-primary">Let’s Work Together!</a>
+            <a href="<?php echo htmlspecialchars(sw_href('contact-us'), ENT_QUOTES, 'UTF-8'); ?>" class="btn-primary">Let’s Work Together!</a>
           </div>
         </div>
       </section>

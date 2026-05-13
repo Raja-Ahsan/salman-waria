@@ -26,11 +26,11 @@
         <div>
           <div class="footer-col-title">Explore</div>
           <ul class="footer-links">
-            <li><a href="about">About</a></li>
-            <li><a href="book-details">World in 2050</a></li>
-            <li><a href="impact">Impact</a></li>
-            <li><a href="presence">Global Presence</a></li>
-            <li><a href="contact-us">Contact</a></li>
+            <li><a href="<?php echo htmlspecialchars(sw_href('about'), ENT_QUOTES, 'UTF-8'); ?>">About</a></li>
+            <li><a href="<?php echo htmlspecialchars(sw_href('book-details'), ENT_QUOTES, 'UTF-8'); ?>">World in 2050</a></li>
+            <li><a href="<?php echo htmlspecialchars(sw_href('impact'), ENT_QUOTES, 'UTF-8'); ?>">Impact</a></li>
+            <li><a href="<?php echo htmlspecialchars(sw_href('presence'), ENT_QUOTES, 'UTF-8'); ?>">Global Presence</a></li>
+            <li><a href="<?php echo htmlspecialchars(sw_href('contact-us'), ENT_QUOTES, 'UTF-8'); ?>">Contact</a></li>
           </ul>
         </div>
         <div>
@@ -384,7 +384,7 @@
         btn.style.opacity = '0.7';
 
         try {
-          const submitUrl = new URL('contact-submit.php', window.location.href).href;
+          const submitUrl = <?php echo json_encode(sw_href('contact-submit.php'), JSON_UNESCAPED_SLASHES); ?>;
           const res = await fetch(submitUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -473,7 +473,7 @@
       btn.style.opacity = '0.8';
 
       try {
-        const submitUrl = new URL('newsletter-submit.php', window.location.href).href;
+        const submitUrl = <?php echo json_encode(sw_href('newsletter-submit.php'), JSON_UNESCAPED_SLASHES); ?>;
         const res = await fetch(submitUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
