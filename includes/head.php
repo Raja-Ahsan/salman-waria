@@ -56,6 +56,44 @@ $sw_h_base = htmlspecialchars($sw_base, ENT_QUOTES, 'UTF-8');
       history.replaceState(null, '', u.pathname + u.search);
     } catch (e) {}
   })();
+
+function scrollToSection(id) {
+    const section = document.getElementById(id);
+
+    if (section) {
+        section.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+}
+
+window.addEventListener('load', function () {
+
+const params = new URLSearchParams(window.location.search);
+const sectionId = params.get('scroll');
+
+if (sectionId) {
+
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+
+        setTimeout(() => {
+            section.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }, 100);
+
+        // Optional:
+        // URL se ?scroll= hata de bina reload ke
+
+        const cleanUrl = window.location.pathname;
+
+        window.history.replaceState({}, document.title, cleanUrl);
+    }
+}
+
+});
   </script>
   <?php endif; ?>
 
