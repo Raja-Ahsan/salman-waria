@@ -32,7 +32,7 @@ $raw = isset($_GET['slug']) ? (string) $_GET['slug'] : '';
 $slug = preg_replace('/[^a-z0-9-]+/', '', strtolower($raw));
 
 if ($slug === '' || !isset($ventures[$slug])) {
-  header('Location: index.php#finest-tech', true, 302);
+  header('Location: finest-tech', true, 302);
   exit;
 }
 
@@ -47,7 +47,7 @@ require __DIR__ . '/includes/header.php';
       <section class="page-section bg-surface-1" aria-labelledby="venture-heading">
         <div class="container">
           <nav aria-label="Breadcrumb" style="margin-bottom: 24px;">
-            <a href="index.php#finest-tech" class="venture-back-link">← Finest Tech Innovator</a>
+            <a href="finest-tech" class="venture-back-link">← Finest Tech Innovator</a>
           </nav>
           <div class="page-block-header" style="margin-bottom: 28px;">
             <h1 class="section-title" id="venture-heading"><?php echo htmlspecialchars($v['title'], ENT_QUOTES, 'UTF-8'); ?></h1>

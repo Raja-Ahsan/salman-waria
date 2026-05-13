@@ -29,6 +29,11 @@ Options -MultiViews
   RewriteCond %{REQUEST_URI} !/(contact-submit|newsletter-submit)\.php$ [NC]
   RewriteRule ^(.+)\.php$ $1 [R=301,L,QSA]
 
+  # Home page sections: /impact, /companies, ... (bina # ke URL)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(companies|ai-products|impact|presence|finest-tech|vision|hero|contact|featured-book|main-content)/?$ index.php?sw_section=$1 [L,QSA]
+
   # /about -> internally about.php (agar file maujood ho)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

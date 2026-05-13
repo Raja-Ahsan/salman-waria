@@ -26,11 +26,11 @@
         <div>
           <div class="footer-col-title">Explore</div>
           <ul class="footer-links">
-            <li><a href="about.php">About</a></li>
-            <li><a href="book-details.php">World in 2050</a></li>
-            <li><a href="index.php#impact">Impact</a></li>
-            <li><a href="index.php#presence">Global Presence</a></li>
-            <li><a href="contact-us.php">Contact</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="book-details">World in 2050</a></li>
+            <li><a href="impact">Impact</a></li>
+            <li><a href="presence">Global Presence</a></li>
+            <li><a href="contact-us">Contact</a></li>
           </ul>
         </div>
         <div>
@@ -326,6 +326,21 @@
         }, { threshold: 0.3 });
         obs.observe(el);
       });
+
+      function swScrollToSectionTarget() {
+        const id = window.__SW_SCROLL_TO_ID;
+        if (!id) return;
+        const el = document.getElementById(id);
+        if (!el) return;
+        requestAnimationFrame(() => {
+          const nav = document.getElementById('navbar');
+          const off = (nav && nav.offsetHeight) ? nav.offsetHeight + 12 : 80;
+          const y = el.getBoundingClientRect().top + window.scrollY - off;
+          window.scrollTo({ top: Math.max(0, y), behavior: 'auto' });
+          if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        });
+      }
+      swScrollToSectionTarget();
     }
 
     // ─── CONTACT FORM (PHP + PHPMailer via contact-submit.php) ───

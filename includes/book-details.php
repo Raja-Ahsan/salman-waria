@@ -49,7 +49,7 @@ $sw_cover_url = htmlspecialchars($sw_base, ENT_QUOTES, 'UTF-8') . '/images/book-
 
           <!-- <div class="book-details-back text-center" style="margin-top: clamp(32px, 5vw, 48px);">
             <a href="book.php" class="btn-secondary">Book overview</a>
-            <a href="index.php#book" class="btn-secondary">Home</a>
+            <a href="featured-book" class="btn-secondary">Home</a>
           </div>
         </div> -->
       </section>

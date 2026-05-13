@@ -1,6 +1,17 @@
 <?php
 require __DIR__ . '/includes/sw-session.php';
 $sw_base = 'assests';
+
+$sw_is_home = true;
+$sw_scroll_to_id = null;
+$sw_home_section_paths = ['companies', 'ai-products', 'impact', 'presence', 'finest-tech', 'vision', 'hero', 'contact', 'featured-book', 'main-content'];
+if (!empty($_GET['sw_section']) && is_string($_GET['sw_section'])) {
+  $sw_sec = preg_replace('/[^a-z0-9-]+/', '', strtolower($_GET['sw_section']));
+  if (in_array($sw_sec, $sw_home_section_paths, true)) {
+    $sw_scroll_to_id = $sw_sec === 'featured-book' ? 'book' : $sw_sec;
+  }
+}
+
 require __DIR__ . '/includes/head.php';
 require __DIR__ . '/includes/header.php';
 ?>
@@ -36,7 +47,7 @@ require __DIR__ . '/includes/header.php';
             </div>
 
             <div class="hero-ctas" id="hero-ctas">
-              <a href="#contact" class="btn-primary">Work With Me to Build Something Innovative</a>
+              <a href="contact" class="btn-primary">Work With Me to Build Something Innovative</a>
               <!-- <a href="#book" class="btn-secondary">Read the Book</a> -->
             </div>
 
