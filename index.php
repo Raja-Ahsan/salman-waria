@@ -198,7 +198,8 @@ require __DIR__ . '/includes/header.php';
       </section>
 
       <!-- ── FINEST TECH INNOVATOR (agency grid) ─────────────── -->
-      <section id="finest-tech" aria-labelledby="finest-tech-heading">
+
+      <!-- <section id="finest-tech" aria-labelledby="finest-tech-heading">
         <div class="fti-bg" aria-hidden="true"></div>
         <div class="container">
           <div class="companies-header reveal-up">
@@ -250,7 +251,7 @@ require __DIR__ . '/includes/header.php';
             </article>
           </a>
         </div>
-      </section>
+      </section> -->
 
  
 
