@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Web\BlogController as WebBlogController;
 use App\Http\Controllers\Web\ContactFormController;
 use App\Http\Controllers\Web\SitemapController;
@@ -313,9 +314,7 @@ Route::middleware('auth')->group(function () {
 
 // Admin dashboard routes
 Route::middleware('auth')->group(function () {
-    Route::get('/admin', function () {
-        return view('screens.admin.dashboard.index');
-    })->name('admin.dashboard');
+    Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::post('/admin/blogs/upload-image', [AdminBlogController::class, 'uploadImage'])->name('blogs.upload-image');
     Route::get('/admin/blogs', [AdminBlogController::class, 'index'])->name('blogs.index');

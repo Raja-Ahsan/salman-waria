@@ -57641,7 +57641,7 @@ form header {
 }
 
 .swal2-container button {
-    color: var(--theme-default);
+    /* color: var(--theme-default); */
     font-size: 14px !important;
     font-weight: 400;
     margin: 0;
