@@ -27,7 +27,7 @@
       <div class="footer-col-title">Explore</div>
       <ul class="footer-links">
         <li><a href="{{ url('/about') }}">About</a></li>
-        <li><a href="{{ route('blog.index') }}">Blog</a></li>
+        <!-- <li><a href="{{ route('blog.index') }}">Blog</a></li> -->
         <li><a href="{{ url('/book-details') }}">World in 2050</a></li>
         <li><a href="{{ url('/impact') }}">Impact</a></li>
         <li><a href="{{ url('/presence') }}">Global Presence</a></li>
