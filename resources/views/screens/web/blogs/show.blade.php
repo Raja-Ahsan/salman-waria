@@ -23,8 +23,8 @@
               <time datetime="{{ $post->published_at->toIso8601String() }}">{{ $post->published_at->format('F j, Y') }}</time>
             @endif
             @if ($post->author)
-              <span class="blog-post-byline-sep" aria-hidden="true">·</span>
-              <span>{{ $post->author->name }}</span>
+              <!-- <span class="blog-post-byline-sep" aria-hidden="true">·</span>
+              <span>{{ $post->author->name }}</span> -->
             @endif
           </p>
 
@@ -105,7 +105,7 @@
                       <h3 class="blog-card-title">
                         <a href="{{ route('blog.show', $item->slug) }}">{{ $item->title }}</a>
                       </h3>
-                      <a href="{{ route('blog.show', $item->slug) }}" class="blog-card-link">Read article <span aria-hidden="true">→</span></a>
+                      <a href="{{ route('blog.show', $item->slug) }}" class="blog-card-link">Read More <span aria-hidden="true">→</span></a>
                     </div>
                   </article>
                 @endforeach
