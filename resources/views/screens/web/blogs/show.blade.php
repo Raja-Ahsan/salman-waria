@@ -54,6 +54,37 @@
             </article>
           </div>
 
+          @if ($post->hasFaqs())
+            <section class="page-section bg-surface-2 faq-section blog-faq-section" id="blog-faq" aria-labelledby="blog-faq-heading">
+              <div class="faq-bg" aria-hidden="true"></div>
+              <div class="container">
+                <div class="faq-header reveal-up">
+                  <div class="section-eyebrow section-eyebrow--center">Common questions</div>
+                  <h2 class="section-title text-center" id="blog-faq-heading"><span class="gold-text">FAQs</span></h2>
+                </div>
+
+                <div class="faq-list">
+                  @foreach ($post->faqs as $index => $faq)
+                    @php
+                      $faqNum = $index + 1;
+                      $btnId = 'blog-faq-btn-'.$faqNum;
+                      $panelId = 'blog-faq-panel-'.$faqNum;
+                    @endphp
+                    <div class="faq-item reveal-up">
+                      <button type="button" class="faq-trigger" id="{{ $btnId }}" aria-expanded="false" aria-controls="{{ $panelId }}">
+                        <span class="faq-question">{{ $faq['question'] }}</span>
+                        <span class="faq-icon" aria-hidden="true"></span>
+                      </button>
+                      <div class="faq-panel" id="{{ $panelId }}" role="region" aria-labelledby="{{ $btnId }}" hidden>
+                        <p class="faq-answer">{{ $faq['answer'] }}</p>
+                      </div>
+                    </div>
+                  @endforeach
+                </div>
+              </div>
+            </section>
+          @endif
+
           @if ($related->isNotEmpty())
             <div class="blog-related reveal-up">
               <div class="page-block-header text-center">
@@ -85,3 +116,39 @@
       </section>
 
 @endsection
+
+@push('scripts')
+  <script>
+    (function () {
+      document.querySelectorAll('.faq-section').forEach(function (root) {
+        root.querySelectorAll('.faq-trigger').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var expanded = this.getAttribute('aria-expanded') === 'true';
+            var panelId = this.getAttribute('aria-controls');
+            var panel = panelId ? document.getElementById(panelId) : null;
+            var item = this.closest('.faq-item');
+            if (!panel) return;
+            if (expanded) {
+              this.setAttribute('aria-expanded', 'false');
+              panel.hidden = true;
+              if (item) item.classList.remove('is-open');
+              return;
+            }
+            root.querySelectorAll('.faq-item').forEach(function (el) {
+              el.classList.remove('is-open');
+            });
+            root.querySelectorAll('.faq-trigger').forEach(function (b) {
+              b.setAttribute('aria-expanded', 'false');
+              var pid = b.getAttribute('aria-controls');
+              var p = pid ? document.getElementById(pid) : null;
+              if (p) p.hidden = true;
+            });
+            this.setAttribute('aria-expanded', 'true');
+            panel.hidden = false;
+            if (item) item.classList.add('is-open');
+          });
+        });
+      });
+    })();
+  </script>
+@endpush

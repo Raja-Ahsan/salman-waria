@@ -70,6 +70,9 @@ class BlogController extends Controller
             'mainEntityOfPage' => route('blog.show', $post->slug),
         ]);
 
+        $blog_schema = $post->customSchemaMarkup();
+        $faq_schema = $post->faqSchemaMarkup();
+
         $related = Blog::query()
             ->published()
             ->with('category:id,name,slug')
@@ -84,6 +87,8 @@ class BlogController extends Controller
             'metaTitle',
             'metaDescription',
             'custom_schema',
+            'blog_schema',
+            'faq_schema',
             'related',
         ));
     }

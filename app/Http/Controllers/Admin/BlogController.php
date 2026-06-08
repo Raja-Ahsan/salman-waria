@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\UploadBlogImageRequest;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Support\BlogContentProcessor;
+use App\Support\SchemaInputParser;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -217,10 +218,39 @@ class BlogController extends Controller
                 'canonical_url' => $validated['canonical_url'] ?? null,
                 'robots' => $validated['robots'] ?? 'index, follow',
                 'blog_category_id' => $validated['blog_category_id'] ?? null,
+                'custom_schema' => $this->normalizeCustomSchema($validated['custom_schema'] ?? null),
+                'faqs' => $this->normalizeFaqs($validated['faqs'] ?? null),
             ],
             $message,
             $downgraded,
         ];
+    }
+
+    /**
+     * @param  array<int, array<string, mixed>>|null  $faqs
+     * @return array<int, array{question: string, answer: string}>|null
+     */
+    private function normalizeFaqs(?array $faqs): ?array
+    {
+        if (! is_array($faqs)) {
+            return null;
+        }
+
+        $normalized = collect($faqs)
+            ->map(fn (array $faq) => [
+                'question' => trim((string) ($faq['question'] ?? '')),
+                'answer' => trim((string) ($faq['answer'] ?? '')),
+            ])
+            ->filter(fn (array $faq) => $faq['question'] !== '' && $faq['answer'] !== '')
+            ->values()
+            ->all();
+
+        return $normalized !== [] ? $normalized : null;
+    }
+
+    private function normalizeCustomSchema(?string $schema): ?string
+    {
+        return SchemaInputParser::normalize($schema);
     }
 
     /**

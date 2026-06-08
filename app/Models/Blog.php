@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\SchemaMarkup;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
@@ -24,6 +25,8 @@ class Blog extends Model
         'og_image',
         'canonical_url',
         'robots',
+        'custom_schema',
+        'faqs',
     ];
 
     protected function casts(): array
@@ -31,7 +34,67 @@ class Blog extends Model
         return [
             'published_at' => 'datetime',
             'scheduled_at' => 'datetime',
+            'faqs' => 'array',
         ];
+    }
+
+    public function hasFaqs(): bool
+    {
+        return is_array($this->faqs) && count($this->faqs) > 0;
+    }
+
+    public function customSchemaMarkup(): ?string
+    {
+        if (! is_string($this->custom_schema) || trim($this->custom_schema) === '') {
+            return null;
+        }
+
+        $decoded = json_decode($this->custom_schema, true);
+
+        if (! is_array($decoded) || json_last_error() !== JSON_ERROR_NONE) {
+            return null;
+        }
+
+        $schemas = array_is_list($decoded) ? $decoded : [$decoded];
+
+        return SchemaMarkup::scripts($schemas);
+    }
+
+    public function faqSchemaMarkup(): ?string
+    {
+        if (! $this->hasFaqs()) {
+            return null;
+        }
+
+        $mainEntity = [];
+
+        foreach ($this->faqs as $faq) {
+            $question = trim((string) ($faq['question'] ?? ''));
+            $answer = trim((string) ($faq['answer'] ?? ''));
+
+            if ($question === '' || $answer === '') {
+                continue;
+            }
+
+            $mainEntity[] = [
+                '@type' => 'Question',
+                'name' => $question,
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => $answer,
+                ],
+            ];
+        }
+
+        if ($mainEntity === []) {
+            return null;
+        }
+
+        return SchemaMarkup::script([
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'mainEntity' => $mainEntity,
+        ]);
     }
 
     public static function isContentEmpty(?string $content): bool

@@ -124,6 +124,77 @@
                     </div>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5>Schema Markup (JSON-LD)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-0">
+                        <label class="form-label" for="custom_schema">Custom Schema</label>
+                        <textarea
+                            class="form-control font-monospace"
+                            id="custom_schema"
+                            name="custom_schema"
+                            rows="8"
+                            placeholder='{"@@context":"https://schema.org","@@type":"Article","headline":"..."}'>{{ old('custom_schema', isset($blog) ? ($blog->custom_schema ?? '') : '') }}</textarea>
+                        <small class="text-muted d-block mt-2">
+                            Optional. Paste JSON-LD object, array of schemas, or a full
+                            <code>&lt;script type="application/ld+json"&gt;...&lt;/script&gt;</code> block.
+                            BlogPosting schema is added automatically; use this for extra schemas (e.g. FAQPage).
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">FAQs</h5>
+                    <button type="button" class="btn btn-sm btn-outline-primary" id="add-faq-row">
+                        <i class="fa fa-plus me-1"></i> Add FAQ
+                    </button>
+                </div>
+                <div class="card-body">
+                    @php
+                        $faqRows = old('faqs', isset($blog) ? ($blog->faqs ?? []) : []);
+                        if (! is_array($faqRows) || $faqRows === []) {
+                            $faqRows = [['question' => '', 'answer' => '']];
+                        }
+                    @endphp
+                    <div id="faq-rows">
+                        @foreach ($faqRows as $index => $faq)
+                            <div class="faq-row border rounded p-3 mb-3" data-faq-index="{{ $index }}">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <strong class="text-muted">FAQ #<span class="faq-number">{{ $loop->iteration }}</span></strong>
+                                    <button type="button" class="btn btn-sm btn-outline-danger remove-faq-row" title="Remove FAQ">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="faq-question-{{ $index }}">Question</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="faq-question-{{ $index }}"
+                                        name="faqs[{{ $index }}][question]"
+                                        value="{{ $faq['question'] ?? '' }}"
+                                        placeholder="Enter FAQ question" />
+                                </div>
+                                <div class="mb-0">
+                                    <label class="form-label" for="faq-answer-{{ $index }}">Answer</label>
+                                    <textarea
+                                        class="form-control"
+                                        id="faq-answer-{{ $index }}"
+                                        name="faqs[{{ $index }}][answer]"
+                                        rows="3"
+                                        placeholder="Enter FAQ answer">{{ $faq['answer'] ?? '' }}</textarea>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <small class="text-muted">Optional. FAQs appear on the blog detail page and generate FAQPage schema when saved.</small>
+                </div>
+            </div>
         </div>
 
         <div class="col-xl-4">
@@ -286,6 +357,10 @@
 
             $('#btn-save-post').on('click', function() {
                 $('#save_as').val('publish');
+                if ($('#status').val() === 'draft') {
+                    $('#status').val('published');
+                }
+                toggleScheduleField();
             });
 
             let formDirty = false;
@@ -494,7 +569,12 @@
             }
 
             let isProcessingSubmit = false;
+            let lastClickedSubmitBtn = null;
             const formEl = document.getElementById('submit-form');
+
+            $('#btn-save-draft, #btn-save-post').on('click', function() {
+                lastClickedSubmitBtn = this;
+            });
 
             formEl.addEventListener('submit', async function(e) {
                 if (isProcessingSubmit) return;
@@ -513,7 +593,9 @@
                 isProcessingSubmit = false;
 
                 if (ok) {
-                    $(formEl).trigger('submit');
+                    formEl.requestSubmit(
+                        lastClickedSubmitBtn || document.getElementById('btn-save-post')
+                    );
                 }
             }, true);
 
@@ -535,6 +617,67 @@
                 formDirty = false;
                 $('#content').val(quill.root.innerHTML);
             });
+
+            const faqRowsEl = document.getElementById('faq-rows');
+            let faqIndex = faqRowsEl ? faqRowsEl.querySelectorAll('.faq-row').length : 0;
+
+            function renumberFaqRows() {
+                if (!faqRowsEl) return;
+                faqRowsEl.querySelectorAll('.faq-row').forEach(function (row, i) {
+                    const num = row.querySelector('.faq-number');
+                    if (num) num.textContent = String(i + 1);
+                });
+            }
+
+            function bindRemoveFaqButtons() {
+                if (!faqRowsEl) return;
+                faqRowsEl.querySelectorAll('.remove-faq-row').forEach(function (btn) {
+                    if (btn.dataset.bound === '1') return;
+                    btn.dataset.bound = '1';
+                    btn.addEventListener('click', function () {
+                        const row = this.closest('.faq-row');
+                        if (!row || !faqRowsEl) return;
+                        if (faqRowsEl.querySelectorAll('.faq-row').length <= 1) {
+                            row.querySelectorAll('input, textarea').forEach(function (el) {
+                                el.value = '';
+                            });
+                            return;
+                        }
+                        row.remove();
+                        renumberFaqRows();
+                    });
+                });
+            }
+
+            document.getElementById('add-faq-row')?.addEventListener('click', function () {
+                if (!faqRowsEl) return;
+                const row = document.createElement('div');
+                row.className = 'faq-row border rounded p-3 mb-3';
+                row.dataset.faqIndex = String(faqIndex);
+                row.innerHTML = `
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <strong class="text-muted">FAQ #<span class="faq-number"></span></strong>
+                        <button type="button" class="btn btn-sm btn-outline-danger remove-faq-row" title="Remove FAQ">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Question</label>
+                        <input type="text" class="form-control" name="faqs[${faqIndex}][question]" placeholder="Enter FAQ question" />
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label">Answer</label>
+                        <textarea class="form-control" name="faqs[${faqIndex}][answer]" rows="3" placeholder="Enter FAQ answer"></textarea>
+                    </div>
+                `;
+                faqRowsEl.appendChild(row);
+                faqIndex += 1;
+                renumberFaqRows();
+                bindRemoveFaqButtons();
+            });
+
+            bindRemoveFaqButtons();
+            renumberFaqRows();
         });
     </script>
 @endpush

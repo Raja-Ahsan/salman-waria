@@ -41,6 +41,10 @@ gtag('config', 'G-ED0EJ1YPLN');
     {!! $custom_schema !!}
   @endif
 
+  @if (!empty($blog_schema))
+    {!! $blog_schema !!}
+  @endif
+
   @if (!empty($faq_schema))
     {!! $faq_schema !!}
   @endif
