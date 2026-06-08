@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+Allow: /
+
+Sitemap: https://salmanwaria.com/sitemap.xml
+

@@ -10,36 +10,33 @@ use Illuminate\Http\Response;
 
 class SitemapController extends Controller
 {
+    private const SITE_URL = 'https://salmanwaria.com';
+
     public function index(): Response
     {
         $urls = [
             [
-                'loc' => 'https://salmanwaria.com/',
+                'loc' => self::SITE_URL.'/',
                 'lastmod' => '2026-06-04T00:00:00+00:00',
                 'priority' => '1.00',
             ],
             [
-                'loc' => 'https://salmanwaria.com/about',
+                'loc' => self::SITE_URL.'/about',
                 'lastmod' => '2026-06-04T00:00:00+00:00',
                 'priority' => '0.80',
             ],
             [
-                'loc' => 'https://salmanwaria.com/blog',
-                'lastmod' => now()->toAtomString(),
-                'priority' => '0.85',
-            ],
-            [
-                'loc' => 'https://salmanwaria.com/book',
+                'loc' => self::SITE_URL.'/book',
                 'lastmod' => '2026-06-04T00:00:00+00:00',
                 'priority' => '0.90',
             ],
             [
-                'loc' => 'https://salmanwaria.com/book-details',
+                'loc' => self::SITE_URL.'/book-details',
                 'lastmod' => '2026-06-04T00:00:00+00:00',
                 'priority' => '0.80',
             ],
             [
-                'loc' => 'https://salmanwaria.com/contact-us',
+                'loc' => self::SITE_URL.'/contact-us',
                 'lastmod' => '2026-06-04T00:00:00+00:00',
                 'priority' => '0.70',
             ],
@@ -51,14 +48,14 @@ class SitemapController extends Controller
             ->get(['slug', 'updated_at'])
             ->each(function (Blog $post) use (&$urls) {
                 $urls[] = [
-                    'loc' => route('blog.show', $post->slug),
-                    'lastmod' => $post->updated_at->toAtomString(),
-                    'priority' => '0.75',
+                    'loc' => self::SITE_URL.'/blog/'.$post->slug,
+                    'lastmod' => $post->updated_at->format('Y-m-d\TH:i:s+00:00'),
+                    'priority' => '0.80',
                 ];
             });
 
         return response()
-            ->view('sitemap.index', compact('urls'))
+            ->view('screens.web.sitemap.index', compact('urls'))
             ->header('Content-Type', 'application/xml');
     }
 }
