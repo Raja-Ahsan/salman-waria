@@ -24,7 +24,7 @@ class SitemapController extends Controller
                 'priority' => '0.80',
             ],
             [
-                'loc' => 'https://salmanwaria.com/blogs',
+                'loc' => 'https://salmanwaria.com/blog',
                 'lastmod' => now()->toAtomString(),
                 'priority' => '0.85',
             ],

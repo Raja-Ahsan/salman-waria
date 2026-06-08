@@ -33,7 +33,7 @@
               src="{{ asset('assets/admin/images/dashboard/profile.png') }}"
               alt="" />
             <div class="flex-grow-1">
-              <span>Emay Walter</span>
+              <span>Salman Waria</span>
               <p class="mb-0">
                 Admin <i class="middle fa-solid fa-angle-down"></i>
               </p>

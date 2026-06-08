@@ -286,8 +286,11 @@ Route::post('/contact-submit', [ContactFormController::class, 'store'])->name('c
 
 Route::post('/newsletter-submit', [ContactFormController::class, 'newsletter'])->name('newsletter.submit');
 
-Route::get('/blogs', [WebBlogController::class, 'index'])->name('blog.index');
-Route::get('/blogs/{slug}', [WebBlogController::class, 'show'])->name('blog.show');
+Route::redirect('/blogs', '/blog', 301);
+Route::redirect('/blogs/{slug}', '/blog/{slug}', 301);
+
+Route::get('/blog', [WebBlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [WebBlogController::class, 'show'])->name('blog.show');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 

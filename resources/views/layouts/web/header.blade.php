@@ -50,7 +50,7 @@
         <li><a href="{{ url('/about') }}">About</a></li>
        
         <li><a href="{{ url('/book') }}">Book</a></li>
-        <li><a href="{{ route('blog.index') }}">Blog</a></li>
+        <!-- <li><a href="{{ route('blog.index') }}">Blog</a></li> -->
         <li><a href="{{ url('/ai-ventures') }}" onclick="return scrollToSection('ai-ventures', event)">AI Ventures</a></li>
         <li><a href="{{ url('/impact') }}" onclick="return scrollToSection('impact', event)">Impact</a></li>
         <li><a href="{{ url('/contact-us') }}">Contact</a></li>

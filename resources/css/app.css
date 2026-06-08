@@ -859,9 +859,9 @@ section {
   background: var(--surface-1);
 }
 
-.bg-surface-2 {
+/* .bg-surface-2 {
   background: var(--surface-2);
-}
+} */
 
 .page-section-timeline .timeline-header {
   text-align: left;
@@ -3600,7 +3600,7 @@ footer {
 }
 
 .blog-prose {
-  color: var(--text-primary);
+  color: var(--text-secondary);
   font-size: 1.05rem;
   line-height: 1.8;
 }
@@ -3612,7 +3612,9 @@ footer {
 .blog-prose h1,
 .blog-prose h2,
 .blog-prose h3,
-.blog-prose h4 {
+.blog-prose h4,
+.blog-prose h5,
+.blog-prose h6 {
   font-family: 'Playfair Display', serif;
   color: var(--text-primary);
   line-height: 1.25;
@@ -3622,13 +3624,23 @@ footer {
 .blog-prose p,
 .blog-prose ul,
 .blog-prose ol,
+.blog-prose li,
 .blog-prose blockquote {
   margin: 0 0 1.25em;
-  color: var(--text-muted);
+  color: var(--text-secondary);
+}
+
+/* Override Quill editor inline dark colors on dark theme */
+.blog-prose :is(p, li, span, div, blockquote, td, th, em, i) {
+  color: var(--text-secondary) !important;
+}
+
+.blog-prose :is(h1, h2, h3, h4, h5, h6, strong, b) {
+  color: var(--text-primary) !important;
 }
 
 .blog-prose a {
-  color: var(--gold);
+  color: var(--gold) !important;
 }
 
 .blog-prose img {
