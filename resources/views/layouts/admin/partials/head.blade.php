@@ -11,12 +11,7 @@
     />
     <meta name="author" content="pixelstrap" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <link
-      rel="shortcut icon"
-      href="../assets/images/favicon.png"
-      type="image/x-icon"
-    />
+    <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
     <!-- Google font-->
     <link
       href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap"
