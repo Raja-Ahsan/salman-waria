@@ -17,7 +17,7 @@
       <div class="footer-col-title">Ventures</div>
       <ul class="footer-links">
         <li><a href="http://build-freedom.ai/" target="_blank" rel="noopener noreferrer">Freedom AI</a></li>
-        <li><a href="#">Waria Bot</a></li>
+          <li><a href="https://wariabot.com/" target="_blank" rel="noopener noreferrer">Waria Bot</a></li>
         <li><a href="https://greatamerican.ai/" target="_blank" rel="noopener noreferrer">Great American Ai</a></li>
         <li><a href="https://www.aiestate.ae/" target="_blank" rel="noopener noreferrer">AI Estate Marketplace</a></li>
         <li><a href="#">Salman Waria's Tech Group</a></li>
