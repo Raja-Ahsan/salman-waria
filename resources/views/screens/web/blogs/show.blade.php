@@ -47,10 +47,6 @@
               <div class="blog-prose">
                 {!! normalize_storage_urls($post->content) !!}
               </div>
-
-              <footer class="blog-detail-footer">
-                <a href="{{ route('blog.index') }}" class="btn-secondary">← Back to Blog</a>
-              </footer>
             </article>
           </div>
 
@@ -84,6 +80,10 @@
               </div>
             </section>
           @endif
+
+          <div class="blog-detail-footer reveal-up">
+            <a href="{{ route('blog.index') }}" class="btn-secondary">← Back to Blog</a>
+          </div>
 
           @if ($related->isNotEmpty())
             <div class="blog-related reveal-up">

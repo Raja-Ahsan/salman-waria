@@ -3658,9 +3658,10 @@ footer {
 }
 
 .blog-detail-footer {
-  margin-top: clamp(32px, 5vw, 48px);
-  padding-top: 24px;
-  border-top: 1px solid var(--border-dim);
+
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 .blog-related {
