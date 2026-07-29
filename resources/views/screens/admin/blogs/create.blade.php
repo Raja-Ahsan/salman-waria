@@ -9,3 +9,5 @@
 @section('content')
     @include('screens.admin.blogs.partials.form', ['categories' => $categories])
 @endsection
+
+@include('screens.admin.blogs.partials.form-assets')

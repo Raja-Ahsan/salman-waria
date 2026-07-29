@@ -12,7 +12,16 @@ class BlogContentProcessor
      */
     public static function process(?string $html): ?string
     {
-        if ($html === null || $html === '' || ! str_contains($html, 'data:image')) {
+        if ($html === null || $html === '') {
+            return $html;
+        }
+
+        // Remove Quill table-better editor-only nodes that break reload on edit
+        $html = preg_replace('/<temporary\b[^>]*>.*?<\/temporary>/is', '', $html) ?? $html;
+        $html = preg_replace('/\sclass="ql-cell-focused"/i', '', $html) ?? $html;
+        $html = preg_replace("/\sclass='ql-cell-focused'/i", '', $html) ?? $html;
+
+        if (! str_contains($html, 'data:image')) {
             return $html;
         }
 
