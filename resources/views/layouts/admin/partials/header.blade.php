@@ -2,13 +2,7 @@
   <div class="header-wrapper row m-0">
     <div class="header-logo-wrapper col-auto p-0">
       <div class="logo-wrapper">
-        <a href="index.html"><img
-            class="img-fluid for-light"
-            src="{{ asset('assets/admin/images/logo/logo.png') }}"
-            alt="" /><img
-            class="img-fluid for-dark"
-            src="{{ asset('assets/admin/images/logo/logo_dark.png') }}"
-            alt="" /></a>
+        @include('layouts.admin.partials.brand', ['compact' => true])
       </div>
       <div class="toggle-sidebar">
         <i
@@ -33,7 +27,7 @@
               src="{{ asset('assets/admin/images/dashboard/profile.png') }}"
               alt="" />
             <div class="flex-grow-1">
-              <span>Emay Walter</span>
+              <span>Salman Waria</span>
               <p class="mb-0">
                 Admin <i class="middle fa-solid fa-angle-down"></i>
               </p>

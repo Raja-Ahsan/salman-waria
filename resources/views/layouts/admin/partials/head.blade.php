@@ -11,12 +11,7 @@
     />
     <meta name="author" content="pixelstrap" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <link
-      rel="shortcut icon"
-      href="../assets/images/favicon.png"
-      type="image/x-icon"
-    />
+    <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
     <!-- Google font-->
     <link
       href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap"
@@ -111,5 +106,96 @@
     <script defer src="{{ asset('assets/admin/css/style.js') }}"></script>
     <link href="{{ asset('assets/admin/css/responsive.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Space+Grotesk:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .logo-wrapper .sw-admin-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        text-decoration: none;
+        padding: 6px 0;
+        line-height: 1.15;
+        max-width: 100%;
+      }
+
+      .sw-admin-brand__name {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: clamp(1.15rem, 2vw, 1.4rem);
+        font-weight: 700;
+        color: #2c323f;
+        white-space: nowrap;
+      }
+
+      .sw-admin-brand__accent {
+        color: #c9a84c;
+      }
+
+      .sw-admin-brand__tag {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #8996a4;
+      }
+
+      .sw-admin-brand--compact .sw-admin-brand__name {
+        font-size: 1.05rem;
+      }
+
+      body.dark-only .sw-admin-brand__name,
+      .dark-sidebar .sw-admin-brand__name {
+        color: #f5f5f5;
+      }
+
+      .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .logo-wrapper {
+        padding: 18px 24px;
+        min-height: 78px;
+        display: flex;
+        align-items: center;
+      }
+
+      .page-wrapper.compact-wrapper .page-header .header-wrapper .logo-wrapper {
+        padding: 12px 0;
+        min-width: 0;
+      }
+
+      .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper.close_icon .sw-admin-brand__tag {
+        display: none;
+      }
+
+      .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper.close_icon .sw-admin-brand__name {
+        font-size: 0;
+        line-height: 1;
+      }
+
+      .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper.close_icon .sw-admin-brand__name::before {
+        content: 'SW';
+        font-size: 1rem;
+        font-family: 'Playfair Display', Georgia, serif;
+        font-weight: 700;
+        color: #2c323f;
+      }
+
+      body.dark-only .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper.close_icon .sw-admin-brand__name::before,
+      .dark-sidebar .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper.close_icon .sw-admin-brand__name::before {
+        color: #f5f5f5;
+      }
+
+      .swal2-container .swal2-actions .swal2-confirm,
+      .swal2-container .swal2-actions .swal2-confirm:hover,
+      .swal2-container .swal2-actions .swal2-confirm:focus {
+        color: #fff !important;
+      }
+
+      .swal2-container .swal2-actions .swal2-deny,
+      .swal2-container .swal2-actions .swal2-deny:hover,
+      .swal2-container .swal2-actions .swal2-deny:focus {
+        color: #fff !important;
+      }
+    </style>
     @stack('styles')
   

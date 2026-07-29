@@ -17,7 +17,7 @@
       <div class="footer-col-title">Ventures</div>
       <ul class="footer-links">
         <li><a href="http://build-freedom.ai/" target="_blank" rel="noopener noreferrer">Freedom AI</a></li>
-        <li><a href="#">Waria Bot</a></li>
+          <li><a href="https://wariabot.com/" target="_blank" rel="noopener noreferrer">Waria Bot</a></li>
         <li><a href="https://greatamerican.ai/" target="_blank" rel="noopener noreferrer">Great American Ai</a></li>
         <li><a href="https://www.aiestate.ae/" target="_blank" rel="noopener noreferrer">AI Estate Marketplace</a></li>
         <li><a href="#">Salman Waria's Tech Group</a></li>
@@ -27,7 +27,7 @@
       <div class="footer-col-title">Explore</div>
       <ul class="footer-links">
         <li><a href="{{ url('/about') }}">About</a></li>
-        <li><a href="{{ route('blog.index') }}">Blog</a></li>
+        <!-- <li><a href="{{ route('blog.index') }}">Blog</a></li> -->
         <li><a href="{{ url('/book-details') }}">World in 2050</a></li>
         <li><a href="{{ url('/impact') }}">Impact</a></li>
         <li><a href="{{ url('/presence') }}">Global Presence</a></li>

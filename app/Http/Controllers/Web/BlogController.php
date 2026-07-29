@@ -118,7 +118,6 @@ class BlogController extends Controller
 
         $categories = BlogCategory::query()
             ->where('status', 'active')
-            ->whereHas('blogs', fn ($q) => $q->published())
             ->orderBy('sort_order')
             ->orderBy('name')
             ->get(['id', 'name', 'slug']);

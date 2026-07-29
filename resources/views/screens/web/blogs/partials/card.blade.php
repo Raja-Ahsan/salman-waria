@@ -25,6 +25,6 @@
     @if ($post->excerpt())
       <p class="blog-card-excerpt">{{ $post->excerpt(140) }}</p>
     @endif
-    <a href="{{ route('blog.show', $post->slug) }}" class="blog-card-link">Read article <span aria-hidden="true">→</span></a>
+      <a href="{{ route('blog.show', $post->slug) }}" class="blog-card-link">Read More <span aria-hidden="true">→</span></a>
   </div>
 </article>

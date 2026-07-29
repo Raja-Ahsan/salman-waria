@@ -388,7 +388,7 @@
                 <div class="prod-feature"><span style="width:6px;height:6px;background:var(--cyan);border-radius:50%;flex-shrink:0;"></span>Domain-specific intelligence</div>
                 <div class="prod-feature"><span style="width:6px;height:6px;background:var(--cyan);border-radius:50%;flex-shrink:0;"></span>Advanced workflow automation</div>
               </div>
-              <a href="#" class="prod-link" aria-label="Learn about Waria Bot" style="color:var(--cyan);">
+              <a href="https://wariabot.com/" target="_blank" rel="noopener noreferrer" class="prod-link" aria-label="Learn about Waria Bot" style="color:var(--cyan);">
                 Explore Waria Bot
                 <span class="prod-link-arrow" aria-hidden="true">→</span>
               </a>

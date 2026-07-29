@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="canonical" href="@yield('canonical_url', url('/'))" />
-  <link rel="icon" href="{{ asset('favicon.png') }}" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="{{ asset('favicon.png') }}">
+  <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" sizes="48x48" />
 
-
-  <meta name="google-site-verification" content="OPbi_5hQ4dNS85Ue08ncjlKJ6rirjdZJnCHfCQwZXL4" />
+  
+<meta name="google-site-verification" content="OPbi_5hQ4dNS85Ue08ncjlKJ6rirjdZJnCHfCQwZXL4" />
 
 
 

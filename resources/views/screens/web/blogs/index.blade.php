@@ -22,24 +22,22 @@
 
       <section class="page-section bg-surface-1 blog-list-section" aria-label="Blog posts">
         <div class="container">
-          @if ($categories->isNotEmpty())
-            <div class="blog-filter reveal-up" id="blog-filter" role="navigation" aria-label="Filter by category">
+          <div class="blog-filter reveal-up" id="blog-filter" role="navigation" aria-label="Filter by category">
+            <a
+              href="{{ route('blog.index') }}"
+              class="blog-filter-pill {{ ! $activeCategory ? 'is-active' : '' }}"
+              data-blog-filter
+              data-category="">All</a>
+            @foreach ($categories as $category)
               <a
-                href="{{ route('blog.index') }}"
-                class="blog-filter-pill {{ ! $activeCategory ? 'is-active' : '' }}"
+                href="{{ route('blog.index', ['category' => $category->slug]) }}"
+                class="blog-filter-pill {{ $activeCategory?->id === $category->id ? 'is-active' : '' }}"
                 data-blog-filter
-                data-category="">All</a>
-              @foreach ($categories as $category)
-                <a
-                  href="{{ route('blog.index', ['category' => $category->slug]) }}"
-                  class="blog-filter-pill {{ $activeCategory?->id === $category->id ? 'is-active' : '' }}"
-                  data-blog-filter
-                  data-category="{{ $category->slug }}">
-                  {{ $category->name }}
-                </a>
-              @endforeach
-            </div>
-          @endif
+                data-category="{{ $category->slug }}">
+                {{ $category->name }}
+              </a>
+            @endforeach
+          </div>
 
           <div id="blog-posts-area" class="blog-posts-area">
             @include('screens.web.blogs.partials.posts', ['posts' => $posts])
