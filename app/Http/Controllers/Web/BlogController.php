@@ -14,6 +14,8 @@ class BlogController extends Controller
 {
     public function index(Request $request): View|JsonResponse
     {
+        Blog::publishDueScheduled();
+
         [$posts, $categories, $activeCategory] = $this->blogListingData($request);
 
         if ($request->ajax() || $request->wantsJson()) {
@@ -46,6 +48,8 @@ class BlogController extends Controller
 
     public function show(string $slug): View
     {
+        Blog::publishDueScheduled();
+
         $post = Blog::query()
             ->published()
             ->with(['category:id,name,slug', 'author:id,name'])

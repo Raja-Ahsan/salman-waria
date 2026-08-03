@@ -13,24 +13,12 @@ class PublishScheduledBlogs extends Command
 
     public function handle(): int
     {
-        $count = 0;
-
-        Blog::query()
-            ->where('status', 'scheduled')
-            ->whereNotNull('scheduled_at')
-            ->where('scheduled_at', '<=', now())
-            ->orderBy('id')
-            ->each(function (Blog $blog) use (&$count) {
-                $blog->update([
-                    'status' => 'published',
-                    'published_at' => $blog->scheduled_at,
-                    'scheduled_at' => null,
-                ]);
-                $count++;
-            });
+        $count = Blog::publishDueScheduled();
 
         if ($count > 0) {
             $this->info("Published {$count} scheduled blog post(s).");
+        } else {
+            $this->line('No scheduled blog posts due for publishing.');
         }
 
         return self::SUCCESS;

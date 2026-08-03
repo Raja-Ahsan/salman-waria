@@ -19,6 +19,8 @@ class BlogController extends Controller
 {
     public function index(): View
     {
+        Blog::publishDueScheduled();
+
         $blogs = Blog::query()
             ->with(['author:id,name', 'category:id,name'])
             ->latest()
@@ -164,13 +166,13 @@ class BlogController extends Controller
             $downgraded = true;
         } elseif ($status === 'scheduled') {
             $scheduledAt = isset($validated['scheduled_at'])
-                ? Carbon::parse($validated['scheduled_at'])
+                ? Carbon::parse($validated['scheduled_at'], config('app.timezone'))
                 : null;
 
             if (! $scheduledAt) {
                 $status = 'draft';
                 $downgraded = true;
-            } elseif ($scheduledAt->isPast()) {
+            } elseif ($scheduledAt->lte(now())) {
                 $status = 'published';
                 $publishedAt = $scheduledAt;
                 $scheduledAt = null;
