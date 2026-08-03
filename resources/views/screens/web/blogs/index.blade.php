@@ -144,7 +144,7 @@
 
       area.addEventListener('click', function(e) {
         const link = e.target.closest('#blog-pagination a.page-link');
-        if (!link || link.closest('.disabled') || link.closest('.active')) return;
+        if (!link) return;
         e.preventDefault();
         loadPosts(link.href, getCurrentCategorySlug());
       });

@@ -1,4 +1,4 @@
-<div id="blog-posts-wrapper">
+<div id="blog-posts-wrapper" class="blog-posts-wrapper">
   @if ($posts->count())
     <div class="blog-grid" id="blog-posts-grid">
       @foreach ($posts as $post)
@@ -7,8 +7,8 @@
     </div>
 
     @if ($posts->hasPages())
-      <nav class="blog-pagination reveal-up" id="blog-pagination" aria-label="Blog pagination">
-        {{ $posts->withQueryString()->onEachSide(1)->links('pagination::bootstrap-5') }}
+      <nav class="blog-pagination" id="blog-pagination" aria-label="Blog pagination">
+        {{ $posts->withQueryString()->onEachSide(1)->links('pagination.blog') }}
       </nav>
     @endif
   @else

@@ -240,7 +240,6 @@
                             id="scheduled_at"
                             name="scheduled_at"
                             value="{{ old('scheduled_at', isset($blog) && $blog->scheduled_at ? $blog->scheduled_at->format('Y-m-d\TH:i') : '') }}" />
-                        <small class="text-muted">Post will auto-publish at this time ({{ config('app.timezone') }}).</small>
                     </div>
 
                     @if ($isEdit && $blog->published_at)
