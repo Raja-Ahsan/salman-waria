@@ -3526,6 +3526,8 @@ footer {
   font-size: 0.95rem;
   line-height: 1.65;
   flex: 1;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .blog-card-link {
