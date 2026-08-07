@@ -3603,6 +3603,8 @@ footer {
   color: var(--text-secondary);
   font-size: 1.05rem;
   line-height: 1.8;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .blog-prose > *:first-child {
