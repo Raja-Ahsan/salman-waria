@@ -74,7 +74,10 @@
 
         <div class="augment-hero-copy">
           <!-- <p class="hero-rise augment-hero-kicker" style="animation-delay:0.15s">Gateway to your <span class="italic">augmented self</span></p> -->
-          <h1 class="hero-rise augment-hero-title uppercase" id="augment-hero-heading" style="animation-delay:0.3s">Who I am</h1>
+          <h1 class="hero-rise augment-hero-title gold-text" id="augment-hero-heading" style="animation-delay:0.3s">Who I Am</h1>
+          <p>
+          I’m Salman Waria a global entrepreneur building at the intersection of AI, technology, and business. From emerging ideas to scalable ventures, I’m focused on creating what’s next and making it matter.
+          </p>
           <!-- <p class="hero-rise augment-hero-lead" style="animation-delay:0.5s">A future where carbon fiber, titanium, and human instinct align. Not machine. Not human. Something wonderfully poised between.</p> -->
           <!-- <a href="{{ url('/contact-us') }}" class="hero-rise augment-hero-cta" style="animation-delay:0.7s">
             Reserve Now
@@ -94,17 +97,17 @@
           <p class="section-sub section-sub--center page-hero-sub text-center">
           Salman Waria has spent over a decade building companies that do not trail market trends. They set them. His work spans three continents, multiple industries, and a single conviction; that technology, deployed with precision, changes the trajectory of everything it touches.
           </p>
-          <!-- <div class="stat-pills" role="list" aria-label="Highlights">
-            <div class="stat-pill reveal-up" role="listitem"><strong>12+</strong> ventures</div>
+          <div class="stat-pills" role="list" aria-label="Highlights">
+            <!-- <div class="stat-pill reveal-up" role="listitem"><strong>12+</strong> ventures</div> -->
             <div class="stat-pill reveal-up" role="listitem"><strong>#1</strong> Amazon — Nanotechnology</div>
-            <div class="stat-pill reveal-up" role="listitem"><strong>2</strong> continents</div>
-            <div class="stat-pill reveal-up" role="listitem"><strong>40+</strong> countries — book</div>
-          </div> -->
+            <!-- <div class="stat-pill reveal-up" role="listitem"><strong>2</strong> continents</div>
+            <div class="stat-pill reveal-up" role="listitem"><strong>40+</strong> countries — book</div> -->
+          </div>
         </div>
       </section>
 
       <!-- ── INTRO SPLIT ───────────────────────────────────── -->
-      <section class="page-section bg-surface-1" aria-labelledby="about-bio-heading">
+      <section class="page-section bg-surface-1 about-sec-third" aria-labelledby="about-bio-heading">
         <div class="container">
           <div class="split-2 align-center">
             <div class="media-frame reveal-left">
@@ -120,17 +123,17 @@
             <div class="stack stack-lg reveal-right">
               <div class="page-block-header" style="margin-bottom: 0;">
                 <!-- <p class="section-eyebrow">Who I am</p> -->
-                <h2 class="section-title" id="about-bio-heading"><span class="gold-text">Salman Waria</span></h2>
+                
               </div>
               <p class="text-prose">
-             Undoubtedly a visionary. He started his first digital venture in Dubai at 19, and that early bet shaped the framework he still operates from: real markets, real capital ,real results
+             <span class="section-title" id="about-bio-heading"><span class="gold-text !text-[20px]">Salman</span></span> is Undoubtedly a visionary. He started his first digital venture in Dubai at 19, and that early bet shaped the framework he still operates from: real markets, real capital ,real results
 
               </p>
               <p class="text-prose">
               Today, he leads a portfolio of companies across digital marketing, <strong>AI product development</strong>, media production, and technology consulting. His decisions are grounded in the real friction of building across different markets, regulatory environments, and cultures simultaneously.
               </p>
               <p class="text-prose">
-              He is also the author of <strong>World In 2050</strong>, a book that interrogates the technological forces set to restructure civilisation over the next three decades.
+              He is also the author of <strong class="gold-text">World In 2050</strong>, a book that interrogates the technological forces set to restructure civilisation over the next three decades.
               </p>
               <!-- <div class="inner-quote-block">
                 <p>“The convergence of AI and nanotechnology will redefine every industry by 2035. We are building the infrastructure of that future today.”</p>
