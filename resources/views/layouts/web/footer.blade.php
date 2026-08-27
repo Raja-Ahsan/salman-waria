@@ -96,6 +96,8 @@ function swScrollToSectionTargetWithRetries() {
 }
 
 function swStartHomePage() {
+  document.documentElement.classList.add('sw-page-ready');
+  try { document.dispatchEvent(new Event('sw:page-ready')); } catch (e) {}
   if (window.__SW_SCROLL_TO_ID) {
     swScrollToSectionTarget();
   }
