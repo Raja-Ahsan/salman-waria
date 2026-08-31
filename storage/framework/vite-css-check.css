@@ -5144,9 +5144,9 @@ footer {
   display: block;
   width: 100%;
   height: auto;
-  max-height: min(56vh, 520px);
+  /* max-height: min(56vh, 520px);
   -o-object-fit: cover;
-     object-fit: cover;
+     object-fit: cover; */
 }
 
 .blog-detail-section {

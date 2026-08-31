@@ -3586,8 +3586,8 @@ footer {
   display: block;
   width: 100%;
   height: auto;
-  max-height: min(56vh, 520px);
-  object-fit: cover;
+  /* max-height: min(56vh, 520px);
+  object-fit: cover; */
 }
 
 .blog-detail-section {
