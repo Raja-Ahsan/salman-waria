@@ -12,6 +12,7 @@
     <meta name="author" content="pixelstrap" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
+    <link rel="icon" href="{{ asset('images/favicon-48x48.png') }}" type="image/png" sizes="48x48" />
     <!-- Google font-->
     <link
       href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap"

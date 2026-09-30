@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
+  <link rel="icon" href="{{ asset('images/favicon-48x48.png') }}" type="image/png" sizes="48x48" />
 
   <title>@yield('meta_title', 'Sign In — Salman Waria')</title>
   <meta name="description" content="@yield('meta_description', 'Sign in to the Salman Waria admin dashboard.')" />

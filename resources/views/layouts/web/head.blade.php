@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="canonical" href="@yield('canonical_url', url('/'))" />
-  <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" sizes="48x48" />
+  <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
+  <link rel="icon" href="{{ asset('images/favicon-48x48.png') }}" type="image/png" sizes="48x48" />
 
   
 <meta name="google-site-verification" content="OPbi_5hQ4dNS85Ue08ncjlKJ6rirjdZJnCHfCQwZXL4" />
