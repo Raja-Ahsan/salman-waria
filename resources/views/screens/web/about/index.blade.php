@@ -91,9 +91,9 @@
         <div class="page-hero-bg" aria-hidden="true"></div>
         <div class="page-hero-inner reveal-up">
           <p class="section-eyebrow section-eyebrow--center">The story</p>
-          <h1 class="section-title page-hero-title text-center" id="about-page-heading">
+          <h2 class="section-title page-hero-title text-center" id="about-page-heading">
           Salman Waria —The Global Entrepreneur. AI Architect.<br><span class="gold-text">Technology Innovator.</span>
-          </h1>
+          </h2>
           <p class="section-sub section-sub--center page-hero-sub text-center">
           Salman Waria has spent over a decade building companies that do not trail market trends. They set them. His work spans three continents, multiple industries, and a single conviction; that technology, deployed with precision, changes the trajectory of everything it touches.
           </p>

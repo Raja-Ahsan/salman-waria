@@ -54,9 +54,9 @@
             <div class="book-content reveal-right">
               <div>
                 <p class="section-eyebrow">Salman Waria</p>
-                <h2 class="book-title-large" id="book-page-heading">
+                <h1 class="book-title-large" id="book-page-heading">
                   <span class="gold-text">World in 2050</span> —<br>The year is 2050!
-                </h2>
+                </h1>
               </div>
 
               <div class="book-awards">
