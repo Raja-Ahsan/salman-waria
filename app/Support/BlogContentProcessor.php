@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class BlogContentProcessor
 {
     /**
-     * Replace inline base64 images with stored file URLs and convert video links to embeds.
+     * Replace inline base64 images with stored file URLs and convert video links to YouTube cards.
      */
     public static function process(?string $html): ?string
     {
@@ -55,7 +55,7 @@ class BlogContentProcessor
     }
 
     /**
-     * HTML ready for public blog display (storage URLs + video embeds).
+     * HTML ready for public blog display (storage URLs + YouTube thumbnail cards).
      */
     public static function forDisplay(?string $html): ?string
     {
@@ -67,8 +67,8 @@ class BlogContentProcessor
     }
 
     /**
-     * Convert YouTube / Vimeo links (and plain URLs) into responsive iframe embeds.
-     * Skips URLs that are already inside an iframe.
+     * Convert YouTube / Vimeo links and iframes into clickable thumbnail cards
+     * that open the video on YouTube/Vimeo (no on-page iframe playback).
      */
     public static function embedVideos(?string $html): ?string
     {
@@ -76,55 +76,48 @@ class BlogContentProcessor
             return $html;
         }
 
-        // <p><a href="youtube...">...</a></p> or bare <a>
+        // Existing responsive/iframe embeds → thumbnail link cards
         $html = preg_replace_callback(
-            '/<(p|div)(\b[^>]*)>\s*<a\b[^>]*href=(["\'])(https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be|vimeo\.com)[^"\']+)\3[^>]*>.*?<\/a>\s*<\/\1>/is',
+            '/<div[^>]*class=["\'][^"\']*blog-video[^"\']*["\'][^>]*>\s*<iframe\b[^>]*src=(["\'])([^"\']+)\1[^>]*>\s*<\/iframe>\s*<\/div>/is',
             function (array $matches): string {
-                $embed = self::videoEmbedHtml($matches[4]);
-
-                return $embed ?? $matches[0];
+                return self::videoEmbedHtml($matches[2]) ?? $matches[0];
             },
             $html
         ) ?? $html;
 
-        // Standalone <a href="youtube...">text</a>
         $html = preg_replace_callback(
-            '/<a\b[^>]*href=(["\'])(https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be|vimeo\.com)[^"\']+)\1[^>]*>.*?<\/a>/is',
+            '/<iframe\b[^>]*(?:class=["\'][^"\']*ql-video[^"\']*["\'][^>]*)?src=(["\'])(https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be|player\.vimeo\.com)[^"\']+)\1[^>]*>\s*<\/iframe>/is',
             function (array $matches): string {
-                if (self::isInsideIframeContext($matches[0])) {
-                    return $matches[0];
-                }
-
-                $embed = self::videoEmbedHtml($matches[2]);
-
-                return $embed ?? $matches[0];
+                return self::videoEmbedHtml($matches[2]) ?? $matches[0];
             },
             $html
         ) ?? $html;
 
-        // Bare URLs in text nodes (not already in href/src)
+        // <p><a href="youtube...">...</a></p> (skip our thumbnail cards)
+        $html = preg_replace_callback(
+            '/<(p|div)(\b[^>]*)>\s*<a\b(?![^>]*blog-video-link)[^>]*href=(["\'])(https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be|vimeo\.com)[^"\']+)\3[^>]*>.*?<\/a>\s*<\/\1>/is',
+            function (array $matches): string {
+                return self::videoEmbedHtml($matches[4]) ?? $matches[0];
+            },
+            $html
+        ) ?? $html;
+
+        // Standalone video links (not already our card)
+        $html = preg_replace_callback(
+            '/<a\b(?![^>]*blog-video-link)[^>]*href=(["\'])(https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be|vimeo\.com)[^"\']+)\1[^>]*>.*?<\/a>/is',
+            function (array $matches): string {
+                return self::videoEmbedHtml($matches[2]) ?? $matches[0];
+            },
+            $html
+        ) ?? $html;
+
+        // Bare URLs in text (not inside href/src)
         $html = preg_replace_callback(
             '/(?<!["\'>=])(https?:\/\/(?:www\.)?(?:youtube\.com\/(?:watch\?[^\s<]+|embed\/[\w\-]+|shorts\/[\w\-]+)|youtu\.be\/[\w\-]+|vimeo\.com\/\d+)[^\s<]*)/i',
             function (array $matches): string {
                 $url = rtrim($matches[1], '.,);]');
-                $embed = self::videoEmbedHtml($url);
 
-                return $embed ?? $matches[1];
-            },
-            $html
-        ) ?? $html;
-
-        // Ensure existing ql-video iframes are wrapped for responsive layout
-        $html = preg_replace_callback(
-            '/<(?:div[^>]*class=["\'][^"\']*ql-video[^"\']*["\'][^>]*>\s*)?<iframe\b([^>]*class=["\'][^"\']*ql-video[^"\']*["\'][^>]*)>.*?<\/iframe>(?:\s*<\/div>)?/is',
-            function (array $matches): string {
-                if (preg_match('/src=(["\'])([^"\']+)\1/i', $matches[0], $srcMatch)) {
-                    $embed = self::videoEmbedHtml($srcMatch[2]);
-
-                    return $embed ?? $matches[0];
-                }
-
-                return $matches[0];
+                return self::videoEmbedHtml($url) ?? $matches[1];
             },
             $html
         ) ?? $html;
@@ -134,32 +127,37 @@ class BlogContentProcessor
 
     private static function contentLikelyHasVideoUrl(string $html): bool
     {
-        return (bool) preg_match('/youtube\.com|youtu\.be|vimeo\.com|ql-video/i', $html);
+        return (bool) preg_match('/youtube\.com|youtu\.be|vimeo\.com|ql-video|blog-video/i', $html);
     }
 
-    private static function isInsideIframeContext(string $snippet): bool
-    {
-        return str_contains(strtolower($snippet), '<iframe');
-    }
-
+    /**
+     * Clickable thumbnail that opens the video on YouTube/Vimeo in a new tab.
+     */
     private static function videoEmbedHtml(string $url): ?string
     {
-        $src = self::toEmbedSrc($url);
+        $video = self::parseVideo($url);
 
-        if ($src === null) {
+        if ($video === null) {
             return null;
         }
 
-        $safeSrc = e($src);
+        $watchUrl = e($video['watch_url']);
+        $thumbUrl = e($video['thumb_url']);
+        $label = e($video['label']);
 
         return '<div class="blog-video">'
-            .'<iframe src="'.$safeSrc.'" title="Embedded video" loading="lazy" '
-            .'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
-            .'allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>'
+            .'<a class="blog-video-link" href="'.$watchUrl.'" target="_blank" rel="noopener noreferrer" aria-label="Watch on '.$label.'">'
+            .'<img src="'.$thumbUrl.'" alt="Watch on '.$label.'" loading="lazy" decoding="async" />'
+            .'<span class="blog-video-play" aria-hidden="true"></span>'
+            .'<span class="blog-video-badge">Watch on '.$label.'</span>'
+            .'</a>'
             .'</div>';
     }
 
-    private static function toEmbedSrc(string $url): ?string
+    /**
+     * @return array{id: string, watch_url: string, thumb_url: string, label: string}|null
+     */
+    private static function parseVideo(string $url): ?array
     {
         $url = trim(html_entity_decode($url, ENT_QUOTES | ENT_HTML5));
 
@@ -167,28 +165,40 @@ class BlogContentProcessor
             return null;
         }
 
-        // Already an embed URL
-        if (preg_match('#(?:youtube\.com/embed/|player\.vimeo\.com/video/)([\w\-]+)#i', $url, $m)) {
-            if (stripos($url, 'vimeo') !== false) {
-                return 'https://player.vimeo.com/video/'.$m[1];
-            }
+        // YouTube embed / nocookie
+        if (preg_match('#(?:youtube(?:-nocookie)?\.com/embed/|youtu\.be/)([\w\-]+)#i', $url, $m)) {
+            $id = $m[1];
 
-            return 'https://www.youtube.com/embed/'.$m[1];
+            return [
+                'id' => $id,
+                'watch_url' => 'https://www.youtube.com/watch?v='.$id,
+                'thumb_url' => 'https://i.ytimg.com/vi/'.$id.'/hqdefault.jpg',
+                'label' => 'YouTube',
+            ];
         }
 
-        // youtu.be/ID
-        if (preg_match('#youtu\.be/([\w\-]+)#i', $url, $m)) {
-            return 'https://www.youtube.com/embed/'.$m[1];
-        }
-
-        // youtube.com/watch?v=ID / shorts / live
+        // youtube.com/watch?v= / shorts / live
         if (preg_match('#youtube\.com/(?:watch\?.*?v=|shorts/|live/)([\w\-]+)#i', $url, $m)) {
-            return 'https://www.youtube.com/embed/'.$m[1];
+            $id = $m[1];
+
+            return [
+                'id' => $id,
+                'watch_url' => 'https://www.youtube.com/watch?v='.$id,
+                'thumb_url' => 'https://i.ytimg.com/vi/'.$id.'/hqdefault.jpg',
+                'label' => 'YouTube',
+            ];
         }
 
-        // vimeo.com/123456
-        if (preg_match('#vimeo\.com/(?:video/)?(\d+)#i', $url, $m)) {
-            return 'https://player.vimeo.com/video/'.$m[1];
+        // Vimeo
+        if (preg_match('#(?:player\.)?vimeo\.com/(?:video/)?(\d+)#i', $url, $m)) {
+            $id = $m[1];
+
+            return [
+                'id' => $id,
+                'watch_url' => 'https://vimeo.com/'.$id,
+                'thumb_url' => 'https://vumbnail.com/'.$id.'.jpg',
+                'label' => 'Vimeo',
+            ];
         }
 
         return null;
