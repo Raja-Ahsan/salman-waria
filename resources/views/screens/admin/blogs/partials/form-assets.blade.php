@@ -15,6 +15,19 @@
             max-width: 100%;
             height: auto;
         }
+        .blog-quill-editor .ql-editor .ql-video,
+        .blog-quill-editor .ql-editor iframe {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            aspect-ratio: 16 / 9;
+            height: auto;
+            min-height: 220px;
+            margin: 1em 0;
+            border: 0;
+            border-radius: 8px;
+            background: #111;
+        }
         /* Full-width tables like Summernote */
         .blog-quill-editor .ql-editor .ql-table-wrapper,
         .blog-quill-editor .ql-editor table[class*="ql-table"],
@@ -197,6 +210,12 @@
                     .replace(/<temporary\b[^>]*>[\s\S]*?<\/temporary>/gi, '')
                     .replace(/\sclass="ql-cell-focused"/gi, '')
                     .replace(/\sclass='ql-cell-focused'/gi, '');
+
+                // Convert saved responsive video wrappers into Quill video embeds
+                initialContent = initialContent.replace(
+                    /<div[^>]*class="[^"]*blog-video[^"]*"[^>]*>\s*<iframe[^>]*src=["']([^"']+)["'][^>]*>\s*<\/iframe>\s*<\/div>/gi,
+                    '<iframe class="ql-video" src="$1" frameborder="0" allowfullscreen="true"></iframe>'
+                );
             }
 
             editorHost.innerHTML = '';
@@ -219,6 +238,7 @@
                         ],
                         handlers: {
                             image: imageHandler,
+                            video: videoHandler,
                         },
                     },
                     'table-better': {
@@ -253,6 +273,64 @@
                 );
             }
 
+            function toYouTubeEmbedUrl(rawUrl) {
+                try {
+                    const url = new URL(String(rawUrl || '').trim());
+                    const host = url.hostname.replace(/^www\./, '');
+
+                    if (host === 'youtu.be') {
+                        const id = url.pathname.split('/').filter(Boolean)[0];
+                        return id ? 'https://www.youtube.com/embed/' + id : null;
+                    }
+
+                    if (host === 'youtube.com' || host === 'm.youtube.com' || host === 'youtube-nocookie.com') {
+                        if (url.pathname.startsWith('/embed/')) {
+                            const id = url.pathname.split('/')[2];
+                            return id ? 'https://www.youtube.com/embed/' + id : null;
+                        }
+                        if (url.pathname.startsWith('/shorts/') || url.pathname.startsWith('/live/')) {
+                            const id = url.pathname.split('/')[2];
+                            return id ? 'https://www.youtube.com/embed/' + id : null;
+                        }
+                        const id = url.searchParams.get('v');
+                        return id ? 'https://www.youtube.com/embed/' + id : null;
+                    }
+
+                    if (host === 'vimeo.com') {
+                        const id = url.pathname.split('/').filter(Boolean)[0];
+                        return id && /^\d+$/.test(id) ? 'https://player.vimeo.com/video/' + id : null;
+                    }
+                } catch (e) {}
+                return null;
+            }
+
+            function videoHandler() {
+                const raw = window.prompt('Enter YouTube or Vimeo URL');
+                if (!raw) return;
+
+                const embedUrl = toYouTubeEmbedUrl(raw) || String(raw).trim();
+                const range = quill.getSelection(true) || { index: quill.getLength(), length: 0 };
+                quill.insertEmbed(range.index, 'video', embedUrl, Quill.sources.USER);
+                quill.setSelection(range.index + 1, Quill.sources.USER);
+            }
+
+            function restoreVideoEmbedsInEditor() {
+                const anchors = Array.from(quill.root.querySelectorAll('a[href*="youtube.com"], a[href*="youtu.be"], a[href*="vimeo.com"]'));
+                anchors.forEach(function (anchor) {
+                    const href = anchor.getAttribute('href') || '';
+                    const embedUrl = toYouTubeEmbedUrl(href);
+                    if (!embedUrl) return;
+
+                    const blot = Quill.find(anchor);
+                    if (!blot) return;
+
+                    const index = quill.getIndex(blot);
+                    const length = blot.length ? blot.length() : 1;
+                    quill.deleteText(index, length, Quill.sources.SILENT);
+                    quill.insertEmbed(index, 'video', embedUrl, Quill.sources.SILENT);
+                });
+            }
+
             function syncContentField() {
                 if (tableModule && typeof tableModule.deleteTableTemporary === 'function') {
                     tableModule.deleteTableTemporary(Quill.sources.SILENT);
@@ -263,9 +341,35 @@
 
                 makeTablesFullWidth(quill.root);
 
-                const html = typeof quill.getSemanticHTML === 'function'
-                    ? quill.getSemanticHTML()
-                    : quill.root.innerHTML;
+                // Prefer editor DOM so video iframes are kept (getSemanticHTML turns them into links)
+                let html = quill.root.innerHTML;
+
+                if (typeof quill.getSemanticHTML === 'function') {
+                    const semantic = quill.getSemanticHTML();
+                    // Keep semantic HTML for tables/text, but restore any video iframes from the live DOM
+                    const tmp = document.createElement('div');
+                    tmp.innerHTML = html;
+                    const videos = tmp.querySelectorAll('iframe.ql-video, .ql-video iframe, iframe[src*="youtube.com/embed"], iframe[src*="player.vimeo.com"]');
+                    if (videos.length) {
+                        html = semantic;
+                        const semanticWrap = document.createElement('div');
+                        semanticWrap.innerHTML = html;
+                        // Replace trailing youtube/vimeo links that Quill semantic HTML emits for videos
+                        semanticWrap.querySelectorAll('a[href*="youtube.com"], a[href*="youtu.be"], a[href*="vimeo.com"]').forEach(function (a, i) {
+                            const iframe = videos[i];
+                            if (!iframe) return;
+                            const wrap = document.createElement('div');
+                            wrap.className = 'blog-video';
+                            const clone = iframe.cloneNode(true);
+                            clone.removeAttribute('class');
+                            wrap.appendChild(clone);
+                            a.replaceWith(wrap);
+                        });
+                        html = semanticWrap.innerHTML;
+                    } else {
+                        html = semantic;
+                    }
+                }
 
                 $('#content').val(html);
                 return html;
@@ -273,6 +377,8 @@
 
             if (initialContent && initialContent.trim() !== '') {
                 loadEditorHtml(initialContent);
+                restoreVideoEmbedsInEditor();
+                syncContentField();
             }
 
             function makeTablesFullWidth(root) {

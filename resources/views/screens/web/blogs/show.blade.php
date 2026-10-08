@@ -45,7 +45,7 @@
           <div class="blog-detail-layout">
             <article class="blog-detail-article reveal-up">
               <div class="blog-prose">
-                {!! normalize_storage_urls($post->content) !!}
+                {!! \App\Support\BlogContentProcessor::forDisplay($post->content) !!}
               </div>
             </article>
           </div>
