@@ -15,9 +15,11 @@
       @if ($post->category)
         <span class="blog-card-category">{{ $post->category->name }}</span>
       @endif
+      {{-- Temporarily hidden: blog card date
       @if ($post->published_at)
         <time datetime="{{ $post->published_at->toIso8601String() }}">{{ $post->published_at->format('M d, Y') }}</time>
       @endif
+      --}}
     </div>
     <h2 class="blog-card-title">
       <a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a>

@@ -18,15 +18,17 @@
             @endif
           </p>
           <h1 class="section-title page-hero-title text-center" id="post-heading">{{ $post->title }}</h1>
+          {{-- Temporarily hidden: blog details date / byline
           <p class="section-sub section-sub--center page-hero-sub text-center blog-post-byline">
             @if ($post->published_at)
               <time datetime="{{ $post->published_at->toIso8601String() }}">{{ $post->published_at->format('F j, Y') }}</time>
             @endif
             @if ($post->author)
-              <!-- <span class="blog-post-byline-sep" aria-hidden="true">·</span>
-              <span>{{ $post->author->name }}</span> -->
+              <span class="blog-post-byline-sep" aria-hidden="true">·</span>
+              <span>{{ $post->author->name }}</span>
             @endif
           </p>
+          --}}
 
           @if ($post->featured_image)
             <div class="blog-detail-hero-image reveal-up">
