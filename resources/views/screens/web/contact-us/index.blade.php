@@ -47,14 +47,14 @@
                   <div class="contact-info-icon" aria-hidden="true">✉️</div>
                   <div>
                     <div class="contact-info-label">General Inquiries</div>
-                    <div class="contact-info-value"><a href="mailto:hello@salmanwaria.com">hello@salmanwaria.com</a></div>
+                    <div class="contact-info-value"><a href="mailto:hello.salmanwaria@gmail.com">hello.salmanwaria@gmail.com</a></div>
                   </div>
                 </div>
                 <div class="contact-info-item">
                   <div class="contact-info-icon" aria-hidden="true">💼</div>
                   <div>
                     <div class="contact-info-label">Business Development</div>
-                    <div class="contact-info-value"><a href="mailto:ventures@salmanwaria.com">ventures@salmanwaria.com</a></div>
+                    <div class="contact-info-value"><a href="mailto:ventures.salmanwaria@gmail.com">ventures.salmanwaria@gmail.com</a></div>
                   </div>
                 </div>
                 <div class="contact-info-item">
