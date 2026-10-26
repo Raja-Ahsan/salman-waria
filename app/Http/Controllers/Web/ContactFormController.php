@@ -27,8 +27,10 @@ class ContactFormController extends Controller
             'message' => $validated['message'],
         ];
 
+        $inboxAddresses = $this->inboxAddresses();
+
         try {
-            Mail::to(config('contact.inbox.address'), config('contact.inbox.name'))
+            Mail::to($inboxAddresses)
                 ->send(new ContactOwnerNotification($payload));
         } catch (\Throwable $e) {
             report($e);
@@ -40,8 +42,8 @@ class ContactFormController extends Controller
             ], 502);
         }
 
-        dispatch(function () use ($payload): void {
-            if (strtolower(trim($payload['email'])) === strtolower(trim((string) config('contact.inbox.address')))) {
+        dispatch(function () use ($payload, $inboxAddresses): void {
+            if (in_array(strtolower(trim($payload['email'])), $inboxAddresses, true)) {
                 return;
             }
             try {
@@ -67,7 +69,7 @@ class ContactFormController extends Controller
         $ipText = is_string($ip) && $ip !== '' ? $ip : ($request->ip() ?? 'Unknown');
 
         try {
-            Mail::to(config('contact.inbox.address'), config('contact.inbox.name'))
+            Mail::to($this->inboxAddresses())
                 ->send(new NewsletterOwnerNotification($email, $ipText));
         } catch (\Throwable $e) {
             report($e);
@@ -90,5 +92,21 @@ class ContactFormController extends Controller
             'ok' => true,
             'message' => 'Subscribed successfully.',
         ]);
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function inboxAddresses(): array
+    {
+        $addresses = config('contact.inbox.addresses');
+
+        if (is_array($addresses) && $addresses !== []) {
+            return array_values(array_filter($addresses, 'is_string'));
+        }
+
+        $fallback = trim((string) config('contact.inbox.address', ''));
+
+        return $fallback !== '' ? [$fallback] : ['hello@salmanwaria.com'];
     }
 }
