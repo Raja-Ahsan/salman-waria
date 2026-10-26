@@ -57,13 +57,7 @@
                     <div class="contact-info-value"><a href="mailto:ventures.salmanwaria@gmail.com">ventures.salmanwaria@gmail.com</a></div>
                   </div>
                 </div>
-                <div class="contact-info-item">
-                  <div class="contact-info-icon" aria-hidden="true">📖</div>
-                  <div>
-                    <div class="contact-info-label">Speaking &amp; Media</div>
-                    <div class="contact-info-value"><a href="mailto:media@salmanwaria.com">media@salmanwaria.com</a></div>
-                  </div>
-                </div>
+            
               </div>
             </div>
 
