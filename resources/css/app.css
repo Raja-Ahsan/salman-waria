@@ -3616,8 +3616,10 @@ footer {
   color: var(--text-secondary);
   font-size: 1.05rem;
   line-height: 1.8;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  overflow-wrap: break-word;
+  word-break: normal;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .blog-prose>*:first-child {

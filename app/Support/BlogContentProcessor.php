@@ -20,6 +20,7 @@ class BlogContentProcessor
         $html = preg_replace('/<temporary\b[^>]*>.*?<\/temporary>/is', '', $html) ?? $html;
         $html = preg_replace('/\sclass="ql-cell-focused"/i', '', $html) ?? $html;
         $html = preg_replace("/\sclass='ql-cell-focused'/i", '', $html) ?? $html;
+        $html = self::normalizeNonBreakingSpaces($html);
 
         if (str_contains($html, 'data:image')) {
             $html = preg_replace_callback(
@@ -63,7 +64,20 @@ class BlogContentProcessor
             return $html;
         }
 
-        return self::embedVideos(normalize_storage_urls($html));
+        $html = self::normalizeNonBreakingSpaces(normalize_storage_urls($html));
+
+        return self::embedVideos($html);
+    }
+
+    /**
+     * Quill often stores regular spaces as &nbsp;, which prevents wrapping and
+     * forces mid-word breaks. Convert them to normal spaces for layout.
+     */
+    private static function normalizeNonBreakingSpaces(string $html): string
+    {
+        $html = str_replace(["\u{00A0}", '&nbsp;', '&#160;', '&#xA0;', '&#xa0;'], ' ', $html);
+
+        return $html;
     }
 
     /**
